@@ -1,7 +1,6 @@
 <?php
-    session_start();
     include("database.php");
-    include("header.html");
+    include("header.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,12 +43,10 @@
                 if(password_verify($password, $hash)){
                     $row = mysqli_fetch_assoc($result);
                     $_SESSION["id"] = $row["id"];
-                    $_SESSION["email"] = $row["email"];
-                    $_SESSION["password"] = $row["password"];
-                    if(substr($input, 0, 5) == "admin" OR substr($input, 0, 9) == "013333333"){
+                    if(substr($_SESSION["id"], 0, 1) == 1){
                         header("Location: admin.php");
                     }
-                    elseif(substr($input, 0, 7) == "manager" OR substr($input, 0, 9) == "014444444"){
+                    elseif(substr($_SESSION["id"], 0, 1) == 2){
                         header("Location: manager.php");
                     }
                     else{

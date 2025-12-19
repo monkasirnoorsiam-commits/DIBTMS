@@ -1,6 +1,6 @@
 <?php
+    include("header.php");
     include("database.php");
-    include("header.html");
 ?>
 <!DOCTYPE html>
 <html lang="en">

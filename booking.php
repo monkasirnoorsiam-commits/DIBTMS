@@ -1,7 +1,9 @@
 <?php
-    session_start();
+    include("header.php");
     include("database.php");
-    include("header2.html");
+    if(empty($_SESSION["id"])) {
+        header("Location: login.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

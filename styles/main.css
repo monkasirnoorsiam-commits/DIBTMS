@@ -57,3 +57,75 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+/* Account page styles */
+.account-info {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--light-gray);
+}
+.account-info h2 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+.account-info p {
+    margin: 10px 0;
+    line-height: 1.5;
+    color: var(--text-color);
+}
+.account-info strong {
+    display: inline-block;
+    width: 150px;
+    color: var(--primary-color);
+}
+account strong {
+    display: inline-block;
+    width: 150px;
+    color: var(--primary-color);
+}
+/* Payment options styles */
+.payment-options {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+.payment-options h2 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.payment-table th,
+.payment-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+.payment-table th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+}
+.payment-table tr:hover {
+    background-color: var(--light-gray);
+}
+.edit-btn {
+    padding: 6px 12px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.edit-btn:hover {
+    background-color: var(--primary-color);
+}

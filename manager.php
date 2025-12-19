@@ -1,7 +1,9 @@
 <?php
-    session_start();
+    include("header.php");
     include("database.php");
-    include("header2.html");
+    if(empty($_SESSION["id"])) {
+        header("Location: login.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,16 +16,20 @@
     <h2>Actions:</h2>
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
         <input type="submit" name="add" value="Add Staff"><br>
+        <input type="submit" name="show" value="Show Staff"><br>
         <input type="submit" name="drop" value="Remove Staff"><br>
     </form>
 </body>
 </html>
 <?php 
     if(isset($_POST["add"])){
-        header("Location: add_staff.php");
+        header("Location: adding.php");
+    }
+    elseif(isset($_POST["show"])){
+        header("Location: show.php");
     }
     elseif(isset($_POST["drop"])){
-        header("Location: drop_staff.php");
+        header("Location: dropping.php");
     }
     include("footer.html");
     mysqli_close($conn);
