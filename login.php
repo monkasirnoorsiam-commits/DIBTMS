@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include("database.php");
     include("header.html");
 ?>
@@ -41,6 +42,10 @@
             $result = mysqli_query($conn, $sql);
             if(mysqli_num_rows($result) > 0){
                 if(password_verify($password, $hash)){
+                    $row = mysqli_fetch_assoc($result);
+                    $_SESSION["id"] = $row["id"];
+                    $_SESSION["email"] = $row["email"];
+                    $_SESSION["password"] = $row["password"];
                     if(substr($input, 0, 5) == "admin" OR substr($input, 0, 9) == "013333333"){
                         header("Location: admin.php");
                     }

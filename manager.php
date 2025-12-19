@@ -1,6 +1,7 @@
 <?php
+    session_start();
     include("database.php");
-    include("header.html");
+    include("header2.html");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,4 +26,5 @@
         header("Location: drop_staff.php");
     }
     include("footer.html");
+    mysqli_close($conn);
 ?>

@@ -113,8 +113,6 @@
                 }
                 $no_of_rides = 0;
                 $today = new DateTime();
-                //$timeAsString = $date_of_birth->format('Y-m-d H:i:s');   
-                //$dob = new DateTime($timeAsString);
                 $dob = new DateTime($date_of_birth);
                 $dobFormatted = $dob->format('Y-m-d');
                 $age = (int)($dob->diff($today)->y);
@@ -123,6 +121,8 @@
                 $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, no_of_rides, age, reg_date)
                         VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$no_of_rides', '$age', '$reg_date')";
                 try{
+                    mysqli_query($conn, $sql);
+                    $sql = "INSERT INTO passengers (p_id, discount) VALUES ('$id', '$discount')";
                     mysqli_query($conn, $sql);
                     echo"You are now registered! Now log in to your account";
                     header("Location: login.php");
@@ -137,4 +137,5 @@
         }
     }
     include("footer.html");
+    mysqli_close($conn);
 ?>

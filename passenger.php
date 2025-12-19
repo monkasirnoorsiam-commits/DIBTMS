@@ -1,6 +1,7 @@
 <?php
+    session_start();
     include("database.php");
-    include("header.html");
+    include("header2.html");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,4 +16,5 @@
 </html>
 <?php 
     include("footer.html");
+    mysqli_close($conn);
 ?>
