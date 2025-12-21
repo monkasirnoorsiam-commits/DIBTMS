@@ -15,21 +15,18 @@
 <body>
     <h2>Actions:</h2>
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
-        <input type="submit" name="add" value="Add Staff"><br>
         <input type="submit" name="show" value="Show Staff"><br>
-        <input type="submit" name="drop" value="Remove Staff"><br>
+        <input type="submit" name="show2" value="Show Bus Services"><br>
     </form>
 </body>
 </html>
 <?php 
-    if(isset($_POST["add"])){
-        header("Location: adding.php");
-    }
-    elseif(isset($_POST["show"])){
+    if(isset($_POST["show"])){
+        $_SESSION["type"] = "staff";
         header("Location: show.php");
     }
-    elseif(isset($_POST["drop"])){
-        header("Location: dropping.php");
+    elseif(isset($_POST["show2"])){
+        header("Location: services.php");
     }
     include("footer.html");
     mysqli_close($conn);
