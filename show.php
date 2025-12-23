@@ -156,7 +156,7 @@
                         VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$no_of_rides', '$age', '$reg_date')";
                 
                 if(mysqli_query($conn, $sql)) {
-                    echo "<script>alert('Bus manager added successfully!'); window.location.href='payment_options.php';</script>";
+                    echo "<script>alert('Bus manager added successfully!'); window.location.href='show.php';</script>";
                 } 
                 else {
                     echo "<script>alert('Error adding bus manager!');</script>";
@@ -167,10 +167,10 @@
             $user_id = $_POST["id"];
             $sql = "DELETE FROM users U LEFT JOIN bus_managers M ON U.id = M.m_id WHERE U.id = '$user_id'";
             if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Payment option deleted successfully!'); window.location.href='payment_options.php';</script>";
+                echo "<script>alert('Bus manager removed successfully!'); window.location.href='show.php';</script>";
             } 
             else {
-                echo "<script>alert('Error deleting payment option!');</script>";
+                echo "<script>alert('Error removing Bus manager!');</script>";
             }
         }
         }
@@ -187,10 +187,10 @@
             $user_id = $_POST["id"];
             $sql = "DELETE FROM users U LEFT JOIN passengers P ON U.id = P.p_id WHERE U.id = '$user_id'";
             if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Payment option deleted successfully!'); window.location.href='payment_options.php';</script>";
+                echo "<script>alert('Passenger removed successfully!'); window.location.href='show.php';</script>";
             } 
             else {
-                echo "<script>alert('Error deleting payment option!');</script>";
+                echo "<script>alert('Error removing passenger!');</script>";
             }
         }
         } }

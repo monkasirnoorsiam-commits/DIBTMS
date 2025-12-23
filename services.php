@@ -15,7 +15,7 @@
 <body>
 <?php 
     $user_id = $_SESSION["id"];
-    $sql = "SELECT * FROM bus_service bus LEFT JOIN handles h ON bus.bus_no = h.bus_no WHERE h.m_id = '$user_id'";
+    $sql = "SELECT bus_no, type, total_seats FROM bus_service where m_id = '$user_id'";
     $result = mysqli_query($conn, $sql);
 ?>
 <body>
@@ -26,9 +26,7 @@
                 <tr>
                     <th>Bus Number</th>
                     <th>Type</th>
-                    <th>Staff Information</th>
-                    <th>Destination</th>
-                    <th>Availability</th>
+                    <th>Total Seats</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,9 +35,7 @@
                     echo "<tr>";
                     echo "<td>" . htmlspecialchars($row['bus_no']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['type']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['staff_info']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['destination']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['availability']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['total_seats']) . "</td>";
                     echo "</tr>";
                 }
                 ?>
@@ -49,9 +45,7 @@
         <h2>Add a bus service</h2>
         <form method="post" class="add-form">
             <input type="text" name="type" placeholder="Type" required>
-            <input type="text" name="staff_info" placeholder="Staff Details" required>
-            <input type="text" name="destination" placeholder="Destination" required>
-            <input type="number" name="availability" placeholder="Availability" required>
+            <input type="number" name="total_seats" placeholder="Total Seats" required>
             <button type="submit" name="add" class="edit-btn">Add</button>
         </form>
         <h2>Delete a bus service</h2>
@@ -63,40 +57,35 @@
         <?php
         if(isset($_POST['add'])) {
             $type = mysqli_real_escape_string($conn, $_POST['type']);
-            $staff_info = mysqli_real_escape_string($conn, $_POST['staff_info']);
-            $destination = mysqli_real_escape_string($conn, $_POST['destination']);
-            $availability = mysqli_real_escape_string($conn, $_POST['availability']);
-            $sql = "SELECT * FROM bus_service bus LEFT JOIN handles h ON bus.bus_no = h.bus_no WHERE h.m_id = '$user_id'";
+            $total_seats = mysqli_real_escape_string($conn, $_POST['total_seats']);
+            $m_id = $user_id;
+            $sql = "SELECT MAX(bus_no) as max_bus_no FROM bus_service where m_id = '$m_id'";
             $result = mysqli_query($conn, $sql);
             $row = mysqli_fetch_assoc($result);
             $bus_no = null;
             if(empty($row)){
-                $bus_no = $user_id%100 + 1;
+                $bus_no = ($user_id%100) * 1000 + 1;
             }
             else {
-                $bus_no = $bus_no + 1;
+                $bus_no = 1 + $row["max_bus_no"];
             }
             $counter = 1;
-            while ($counter <= $availability){
+            $sql = "INSERT INTO bus_service (bus_no, m_id, type, total_seats) 
+                    VALUES ('$bus_no', '$m_id', '$type', '$total_seats')";
+            mysqli_query($conn, $sql);
+            while ($counter <= $total_seats){
                 $sql = "INSERT INTO bus_seats (bus_no, seat_no, vacant) 
-                        VALUES ('$bus_no', '$counter', 'true')";
+                        VALUES ('$bus_no', '$counter', '1')";
                 mysqli_query($conn, $sql);
                 $counter = $counter + 1;
             }
-            $sql = "INSERT INTO bus_service (bus_no, type, staff_info, destination, availability) 
-                    VALUES ('$bus_no', '$type', '$staff_info', '$destination', '$availability')";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Bus service added successfully!'); window.location.href='services.php';</script>";
-            } 
-            else {
-                echo "<script>alert('Error adding bus service!');</script>";
-            }
+            echo "<script>alert('Bus service added successfully!'); window.location.href='services.php';</script>";
         }
         if(isset($_POST['delete'])) {
             $bus_no = mysqli_real_escape_string($conn, $_POST['bus_no']);
-            $sql = "DELETE FROM bus_service WHERE bus_no = '$bus_no'";
-            mysqli_query($conn, $sql);
             $sql = "DELETE FROM bus_seats WHERE bus_no = '$bus_no'";
+            mysqli_query($conn, $sql);
+            $sql = "DELETE FROM bus_service WHERE m_id = '$user_id' AND bus_no = '$bus_no'";
             if(mysqli_query($conn, $sql)) {
                 echo "<script>alert('Bus service deleted successfully!'); window.location.href='services.php';</script>";
             } 

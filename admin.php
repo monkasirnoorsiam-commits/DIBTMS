@@ -40,5 +40,4 @@
         header("Location: verify.php");
     }
     include("footer.html");
-    mysqli_close($conn);
 ?>
