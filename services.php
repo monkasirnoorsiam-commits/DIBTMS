@@ -16,7 +16,7 @@
 <body>
 <?php 
     $user_id = $_SESSION["id"];
-    $sql = "SELECT bus_no, type, total_seats FROM bus_service where m_id = '$user_id'";
+    $sql = "SELECT bus_no, type, total_seats, description, cost FROM bus_service where m_id = '$user_id'";
     $result = mysqli_query($conn, $sql);
 ?>
 <body>
@@ -28,6 +28,8 @@
                     <th>Bus Number</th>
                     <th>Type</th>
                     <th>Total Seats</th>
+                    <th>Description</th>
+                    <th>Ride Cost</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +39,8 @@
                     echo "<td>" . htmlspecialchars($row['bus_no']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['type']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['total_seats']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['description']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['cost']) . "</td>";
                     echo "</tr>";
                 }
                 ?>
@@ -47,6 +51,8 @@
         <form method="post" class="add-form">
             <input type="text" name="type" placeholder="Type" required>
             <input type="number" name="total_seats" placeholder="Total Seats" required>
+            <input type="text" name="description" placeholder="Description">
+            <input type="number" name="cost" placeholder="Ride Cost" required>
             <button type="submit" name="add" class="edit-btn">Add</button>
         </form>
         <h2>Delete a bus service</h2>
@@ -59,6 +65,8 @@
         if(isset($_POST['add'])) {
             $type = mysqli_real_escape_string($conn, $_POST['type']);
             $total_seats = mysqli_real_escape_string($conn, $_POST['total_seats']);
+            $description = $_POST['description'];
+            $cost = mysqli_real_escape_string($conn, $_POST['cost']);
             $m_id = $user_id;
             $sql = "SELECT MAX(bus_no) as max_bus_no FROM bus_service where m_id = '$m_id'";
             $result = mysqli_query($conn, $sql);
@@ -71,8 +79,8 @@
                 $bus_no = 1 + $row["max_bus_no"];
             }
             $counter = 1;
-            $sql = "INSERT INTO bus_service (bus_no, m_id, type, total_seats) 
-                    VALUES ('$bus_no', '$m_id', '$type', '$total_seats')";
+            $sql = "INSERT INTO bus_service (bus_no, m_id, type, total_seats, description, cost) 
+                    VALUES ('$bus_no', '$m_id', '$type', '$total_seats', '$description', '$cost')";
             mysqli_query($conn, $sql);
             while ($counter <= $total_seats){
                 $sql = "INSERT INTO bus_seats (bus_no, seat_no, vacant) 

@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="styles/main.css">
     <title>DIBTMS Time Slots</title>
 </head>
-<body>
 <?php 
     $user_id = $_SESSION["id"];
     $sql = "SELECT t.* FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id' ORDER BY t.time ASC";
