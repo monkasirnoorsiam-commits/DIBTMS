@@ -11,11 +11,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
+    <title>DIBTMS Time Slots</title>
 </head>
 <body>
 <?php 
     $user_id = $_SESSION["id"];
-    $sql = "SELECT t.* FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id'";
+    $sql = "SELECT t.* FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id' ORDER BY t.time ASC";
     $result = mysqli_query($conn, $sql);
 ?>
 <body>
@@ -65,7 +66,7 @@
         <h2>Delete a Time Slot</h2>
             <form method="post" class="delete-form">
             <?php
-                $sql = "SELECT t.* FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id'";
+                $sql = "SELECT DISTINCT t.bus_no FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id'";
                 $result = mysqli_query($conn, $sql); ?>
             <select name="bus_no" required>
                 <?php
@@ -73,14 +74,16 @@
                     while($row = mysqli_fetch_assoc($result)) {
                         echo "<option value='" . $row['bus_no'] . "'>" . $row['bus_no'] . "</option>";
                     }
+                    $sql = "SELECT DISTINCT t.time FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id'";
+                    $result = mysqli_query($conn, $sql); 
                 ?>
             </select>
             <select name="time" required>
                 <?php
-                    mysqli_data_seek($result, 0);
-                    while($row = mysqli_fetch_assoc($result)) {
-                        echo "<option value='" . $row['time'] . "'>" . $row['time'] . "</option>";
-                    }
+                mysqli_data_seek($result, 0);
+                while($row = mysqli_fetch_assoc($result)) {
+                    echo "<option value='" . $row['time'] . "'>" . $row['time'] . "</option>";
+                }
                 ?>
             </select>
             <button type="submit" name="delete" class="edit-btn">Delete</button>

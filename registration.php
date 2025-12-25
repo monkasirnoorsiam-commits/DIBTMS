@@ -13,48 +13,29 @@
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
         <h2>Registration form</h2>
         Name:
-        <input type="text" name="name"><br>
+        <input type="text" name="name" placeholder="Name" required><br>
         Email:
-        <input type="text" name="email"><br>
+        <input type="text" name="email" placeholder="Email" required><br>
         Phone number:
-        <input type="text" name="phone_no"><br>
+        <input type="text" name="phone_no" placeholder="Phone number" required><br>
         Password:
-        <input type="password" name="password"><br>
+        <input type="password" name="password" placeholder="Password" required><br>
         NID:
-        <input type="text" name="nid"><br>
+        <input type="text" name="nid" placeholder="NID" required><br>
         Date of birth:
-        <input type="date" name="date_of_birth"><br>
+        <input type="date" name="date_of_birth" placeholder="Date of birth" required><br>
         Address:
-        <input type="radio" name="address" value="Mirpur-10">
-        Mirpur-10     
-        <input type="radio" name="address" value="Mohakhali">
-        Mohakhali     
-        <input type="radio" name="address" value="Farmgate">
-        Farmgate     
-        <input type="radio" name="address" value="Uttara">
-        Uttara     
-        <input type="radio" name="address" value="Dhanmondi">
-        Dhanmondi     
-        <input type="radio" name="address" value="Science Lab">
-        Science Lab<br>
-        <input type="radio" name="address" value="Agargaon">
-        Agargaon
-        <input type="radio" name="address" value="Gulshan">
-        Gulshan     
-        <input type="radio" name="address" value="Motijheel">
-        Motijheel     
-        <input type="radio" name="address" value="Shahbag">
-        Shahbag     
-        <input type="radio" name="address" value="Gulistan">
-        Gulistan     
-        <input type="radio" name="address" value="New Market">
-        New Market<br>
-        <input type="radio" name="address" value="Komlapur">
-        Komlapur     
-        <input type="radio" name="address" value="Lalbag">
-        Lalbag
-        <input type="radio" name="address" value="Others">
-        Others<br>
+        <select name="address" required><br>
+            <?php
+                $addresses = array("Aftabnagar", "Agargaon", "Airport", "Badda", "Banani", "Bangla Motor", "Bijoy Shoroni", "Cantonment", 
+                            "Dhanmondi", "ECB Chottor", "Farmgate", "Gulistan", "Gulshan", "Kamalapur", "Kalshi Flyover", 
+                            "Lalbag", "Mohakhali", "Mohammadpur", "Mogbazar", "Motijheel", "Mirpur-1", "Mirpur-10", "Mirpur-12", 
+                            "Multiplan", "Puran Dhaka", "Science Lab", "Shahbag", "Shishu Park", "Uttara");
+                foreach($addresses as $address){
+                    echo "<option value='" . $address . "'>" . $address . "</option>";
+                }
+            ?>
+        </select>
         <input type="submit" name="submit" value="register"><br>
     </form>
 </body>
