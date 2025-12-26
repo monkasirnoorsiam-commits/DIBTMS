@@ -1,7 +1,8 @@
 <?php
     include("header.php");
     include("database.php");
-    if(empty($_SESSION["id"])) {
+
+    if (empty($_SESSION["id"])) {
         header("Location: login.php");
     }
 ?>
@@ -12,11 +13,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIBTMS Reviews</title>
 </head>
-<body>
-    This is the reviews' page
+
+
+<body style="min-height:100vh; display:flex; flex-direction:column;">
+
+<h2>Review Bus Service</h2>
+
+<form method="post">
+    Bus Number:<br>
+    <input type="number" name="bus_no" required><br><br>
+
+    Rating (1 to 5):<br>
+    <input type="number" name="ratings" min="1" max="5" step="0.1" required><br><br>
+
+    Comment:<br>
+    <textarea name="comments" maxlength="100" required></textarea><br><br>
+
+    <input type="submit" name="submit" value="Submit Review">
+</form>
+
+<?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $p_id = $_SESSION["id"];
+        $bus_no = $_POST["bus_no"];
+        $ratings = $_POST["ratings"];
+        $comments = $_POST["comments"];
+
+        $sql = "INSERT INTO reviews (p_id, bus_no, comments, ratings)
+                VALUES ('$p_id', '$bus_no', '$comments', '$ratings')";
+
+        if (mysqli_query($conn, $sql)) {
+            echo "<p>Review submitted successfully!</p>";
+        } else {
+            echo "<p>Error submitting review.</p>";
+        }
+    }
+?>
+
+
+<div style="margin-top:auto;">
+    <?php 
+        include("footer.html");
+        mysqli_close($conn);
+    ?>
+</div>
+
 </body>
 </html>
-<?php 
-    include("footer.html");
-    mysqli_close($conn);
-?>
