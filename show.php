@@ -27,7 +27,7 @@
             LEFT JOIN bus_managers m ON u.id = m.m_id WHERE u.id LIKE '2%'";
         }
         elseif($_SESSION["type"] == "passenger"){
-            $sql = "SELECT u.*, p.discount, p.no_of_rides
+            $sql = "SELECT u.*, p.discount 
             FROM users u
             LEFT JOIN passengers p ON u.id = p.p_id WHERE u.id LIKE '3%'";
         }
@@ -47,14 +47,15 @@
     <div class='payment-options'>
         <?php if(substr($_SESSION["id"], 0, 1) == 1){
             if($_SESSION["type"] == "admin"){
-            ?> <h2>List Of All Admins</h2> 
+            ?> <h2 class="section-title">List Of All Admins</h2> 
         <?php } elseif($_SESSION["type"] == "manager"){
-            ?> <h2>List Of All Bus Managers</h2> 
+            ?> <h2 class="section-title">List Of All Bus Managers</h2>
+
         <?php } elseif($_SESSION["type"] == "passenger"){
-            ?> <h2>List Of All Registered Passengers</h2> 
+            ?> <h2 class="section-title">List Of All Registered Passengers</h2> 
         <?php } } elseif(substr($_SESSION["id"], 0, 1) == 2){
             if($_SESSION["type"] == "staff"){ 
-            ?> <h2>List Of All Staffs</h2> 
+            ?> <h2 class="section-title">List Of All Staffs</h2> 
         <?php } } elseif(substr($_SESSION["id"], 0, 1) == 3){} ?>
         <table class="payment-table">
             <thead>
@@ -72,7 +73,6 @@
                         ?> <th>Salary</th>
                     <?php } elseif($_SESSION["type"] == "passenger"){
                         ?> <th>Discount</th>
-                        <th>No of rides</th>
                     <?php } } ?>
                 </tr>
             </thead>
@@ -94,7 +94,6 @@
                         }
                         elseif($_SESSION["type"] == "passenger"){
                             echo "<td>" . htmlspecialchars($row['discount']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['no_of_rides']) . "</td>";
                         }
                     }
                     echo "</tr>";
@@ -104,7 +103,7 @@
         </table>
     <?php if(substr($_SESSION["id"], 0, 1) == 1){
             if($_SESSION["type"] == "manager"){
-            ?> <h2>Add a Bus Manager</h2>
+            ?> <h2 class="section-title">Add a Bus Manager</h2>
             <div class="button-container">
         <form method="post" class="add-form">
             <input type="text" name="name" placeholder="Name" required>
@@ -117,7 +116,7 @@
             <input type="number" name="salary" placeholder="Salary" required>
             <button type="submit" name="add" class="edit-btn">Add</button>
         </form>
-        <h2>Delete a Bus Manager</h2>
+        <h2 class="section-title">Delete a Bus Manager</h2>
         <form method="post" class="delete-form">
             <input type="number" name="id" placeholder="Manager ID" required>
             <button type="submit" name="delete" class="edit-btn">Delete</button>
@@ -148,13 +147,14 @@
                 else{
                     $id = $row["id"] + 1;
                 }
+                $no_of_rides = 0;
                 $today = new DateTime();
                 $dob = new DateTime($date_of_birth);
                 $dobFormatted = $dob->format('Y-m-d');
                 $age = (int)($dob->diff($today)->y);
                 $reg_date = $today->format('Y-m-d H:i:s');
-                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, age, reg_date)
-                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$age', '$reg_date')";
+                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, no_of_rides, age, reg_date)
+                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$no_of_rides', '$age', '$reg_date')";
                 
                 if(mysqli_query($conn, $sql)) {
                     echo "<script>alert('Bus manager added successfully!'); window.location.href='show.php';</script>";
@@ -177,18 +177,18 @@
         }
         else if ($_SESSION["type"] == "passenger"){ ?>
             <div class="button-container">
-            <h2>Update discount of a passenger</h2>
+            <h2 class="section-title">Update discount of a passenger</h2>
             <form method="post" class="delete-form">
                 <input type="number" name="id" placeholder="Passenger ID" required>
                 <input type="number" name="discount" placeholder="Discount" required>
                 <button type="submit" name="update1" class="edit-btn">Update</button>
                 </form>
-            <h2>Update discount of all passengers</h2>
+            <h2 class="section-title">Update discount of all passengers</h2>
             <form method="post" class="delete-form">
                 <input type="number" name="discount" placeholder="Discount" required>
                 <button type="submit" name="update2" class="edit-btn">Update</button>
                 </form>
-            <h2>Delete a passenger</h2>
+            <h2 class="section-title">Delete a passenger</h2>
             <form method="post" class="delete-form">
                 <input type="number" name="id" placeholder="Passenger ID" required>
                 <button type="submit" name="delete" class="edit-btn">Delete</button>
