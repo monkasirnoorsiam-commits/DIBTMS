@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <header>
-    <img src="DIBTMS_logo.jpg" alt="Dhaka Intercity Bus Transit Management System logo">
+    <img src="DIBTMS_logo.png" alt="Dhaka Intercity Bus Transit Management System logo">
     <h2>Dhaka Intercity Bus Transit Management System</h2>
     <nav>
     <?php
@@ -45,4 +45,5 @@
     ?>
     </nav>
 </header>
+
 </html>
