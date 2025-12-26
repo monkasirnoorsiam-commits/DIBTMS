@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2025 at 10:46 AM
+-- Generation Time: Dec 26, 2025 at 04:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -152,34 +152,22 @@ INSERT INTO `bus_service` (`bus_no`, `m_id`, `type`, `total_seats`, `description
 -- --------------------------------------------------------
 
 --
--- Table structure for table `manages`
---
-
-CREATE TABLE `manages` (
-  `m_id` int(6) NOT NULL,
-  `ad_id` int(6) NOT NULL,
-  `assigned_duties` varchar(100) NOT NULL,
-  `remarks` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `passengers`
 --
 
 CREATE TABLE `passengers` (
   `p_id` int(6) NOT NULL,
-  `discount` float NOT NULL
+  `discount` float NOT NULL,
+  `no_of_rides` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `passengers`
 --
 
-INSERT INTO `passengers` (`p_id`, `discount`) VALUES
-(300001, 0.05),
-(300002, 0.05);
+INSERT INTO `passengers` (`p_id`, `discount`, `no_of_rides`) VALUES
+(300001, 0.05, 1),
+(300002, 0.05, 0);
 
 -- --------------------------------------------------------
 
@@ -298,7 +286,6 @@ CREATE TABLE `users` (
   `nid` varchar(10) NOT NULL,
   `date_of_birth` date NOT NULL,
   `address` varchar(50) NOT NULL,
-  `no_of_rides` int(4) NOT NULL,
   `age` int(3) NOT NULL,
   `reg_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -307,25 +294,13 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone_no`, `password`, `nid`, `date_of_birth`, `address`, `no_of_rides`, `age`, `reg_date`) VALUES
-(100001, 'MD. Fahim Abdullah Kayfe', 'admin1@gmail.com', '01333333331', '$2y$10$3JPcYf.82smcs9lbs6vB8.vqfaiXmDzCLty5m.gSm9vplAZmrb1Xe', '1234567891', '2000-07-04', 'Puran Dhaka', 0, 24, '2025-12-17 22:08:36'),
-(100002, 'Md. Monkasir Noor Siam', 'admin2@yahoo.com', '01333333332', '$2y$10$LljqqSr9INxu/VEE4M057.y0bv/jlMzSxqyeJZC/v0I0gaRSX6b/i', '1651819412', '2001-09-19', 'Shewrapara', 0, 23, '2025-12-19 09:50:46'),
-(100003, 'Md. Samiul Islam', 'admin3@outlook.com', '01333333333', '$2y$10$fevYZKuTZm3vNO81Fzio1OaLxmbmacd3XktsGNneqzcBlGg84kaBi', '1181616039', '2002-08-02', 'Karwan Bazar', 0, 23, '2025-12-19 09:57:15'),
-(200001, 'Md. Sohel Ahmed', 'manager1@gmail.com', '01444444441', '$2y$10$yJtQFTOLTckdbwoo7Wa2TehJ8raqYs5lmKdwh/IHgbOdg4ilmaO1C', '1234567892', '2001-05-19', 'Mirpur', 0, 23, '2025-12-17 22:13:46'),
-(300001, 'nafis', 'nafis@gmail.com', '01651614891', '$2y$10$0/AMXYX2E3dBW38SLhaBDucrpKboOHi82nZPF1YGQ6Vqan7H2y1.G', '1651614844', '2001-02-21', 'Mirpur-10', 0, 24, '2025-12-18 09:31:22'),
-(300002, 'Mahin Mosaddek', 'mahin@gmail.com', '01484599822', '$2y$10$E84.Fon.OJZPVZNpA5Ww..Tq4w1KFc1AU34dbg2rqHuPCbZ40NYB.', '1651894985', '2003-03-06', 'Gulshan', 0, 22, '2025-12-21 10:40:31');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `verifies`
---
-
-CREATE TABLE `verifies` (
-  `ad_id` int(6) NOT NULL,
-  `p_id` int(6) NOT NULL,
-  `confirmation` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `users` (`id`, `name`, `email`, `phone_no`, `password`, `nid`, `date_of_birth`, `address`, `age`, `reg_date`) VALUES
+(100001, 'MD. Fahim Abdullah Kayfe', 'admin1@gmail.com', '01333333331', '$2y$10$3JPcYf.82smcs9lbs6vB8.vqfaiXmDzCLty5m.gSm9vplAZmrb1Xe', '1234567891', '2000-07-04', 'Puran Dhaka', 24, '2025-12-17 22:08:36'),
+(100002, 'Md. Monkasir Noor Siam', 'admin2@yahoo.com', '01333333332', '$2y$10$LljqqSr9INxu/VEE4M057.y0bv/jlMzSxqyeJZC/v0I0gaRSX6b/i', '1651819412', '2001-09-19', 'Shewrapara', 23, '2025-12-19 09:50:46'),
+(100003, 'Md. Samiul Islam', 'admin3@outlook.com', '01333333333', '$2y$10$fevYZKuTZm3vNO81Fzio1OaLxmbmacd3XktsGNneqzcBlGg84kaBi', '1181616039', '2002-08-02', 'Karwan Bazar', 23, '2025-12-19 09:57:15'),
+(200001, 'Md. Sohel Ahmed', 'manager1@gmail.com', '01444444441', '$2y$10$yJtQFTOLTckdbwoo7Wa2TehJ8raqYs5lmKdwh/IHgbOdg4ilmaO1C', '1234567892', '2001-05-19', 'Mirpur', 23, '2025-12-17 22:13:46'),
+(300001, 'nafis', 'nafis@gmail.com', '01651614891', '$2y$10$0/AMXYX2E3dBW38SLhaBDucrpKboOHi82nZPF1YGQ6Vqan7H2y1.G', '1651614844', '2001-02-21', 'Mirpur-10', 24, '2025-12-18 09:31:22'),
+(300002, 'Mahin Mosaddek', 'mahin@gmail.com', '01484599822', '$2y$10$E84.Fon.OJZPVZNpA5Ww..Tq4w1KFc1AU34dbg2rqHuPCbZ40NYB.', '1651894985', '2003-03-06', 'Gulshan', 22, '2025-12-21 10:40:31');
 
 --
 -- Indexes for dumped tables
@@ -357,14 +332,6 @@ ALTER TABLE `bus_seats`
 ALTER TABLE `bus_service`
   ADD PRIMARY KEY (`bus_no`),
   ADD UNIQUE KEY `bus_no` (`bus_no`);
-
---
--- Indexes for table `manages`
---
-ALTER TABLE `manages`
-  ADD PRIMARY KEY (`ad_id`),
-  ADD KEY `m_id` (`m_id`),
-  ADD KEY `ad_id` (`ad_id`);
 
 --
 -- Indexes for table `passengers`
@@ -412,13 +379,6 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `verifies`
---
-ALTER TABLE `verifies`
-  ADD KEY `ad_id` (`ad_id`),
-  ADD KEY `p_id` (`p_id`);
-
---
 -- Constraints for dumped tables
 --
 
@@ -439,13 +399,6 @@ ALTER TABLE `bus_managers`
 --
 ALTER TABLE `bus_seats`
   ADD CONSTRAINT `bus_seats_ibfk_1` FOREIGN KEY (`bus_no`) REFERENCES `bus_service` (`bus_no`);
-
---
--- Constraints for table `manages`
---
-ALTER TABLE `manages`
-  ADD CONSTRAINT `manages_ibfk_1` FOREIGN KEY (`ad_id`) REFERENCES `admins` (`ad_id`),
-  ADD CONSTRAINT `manages_ibfk_2` FOREIGN KEY (`m_id`) REFERENCES `bus_managers` (`m_id`);
 
 --
 -- Constraints for table `passengers`
@@ -485,13 +438,6 @@ ALTER TABLE `staffs`
 --
 ALTER TABLE `time_slots`
   ADD CONSTRAINT `time_slots_ibfk_1` FOREIGN KEY (`bus_no`) REFERENCES `bus_service` (`bus_no`);
-
---
--- Constraints for table `verifies`
---
-ALTER TABLE `verifies`
-  ADD CONSTRAINT `verifies_ibfk_1` FOREIGN KEY (`ad_id`) REFERENCES `admins` (`ad_id`),
-  ADD CONSTRAINT `verifies_ibfk_2` FOREIGN KEY (`p_id`) REFERENCES `passengers` (`p_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -21,6 +21,7 @@
         $time = $_SESSION['time'];
         $seats = $_SESSION['seats'];
         $discount = $_SESSION['discount'];
+        $no_of_rides = $_SESSION['no_of_rides'];
         $cost = $_SESSION['cost'];
         $ride_cost = $_SESSION['ride_cost'];
         $ride_date = $_SESSION['ride_date'];
@@ -76,6 +77,9 @@
                                 $amount = $amount - $ride_cost;
                                 $sql = "UPDATE payment_options SET amount = '$amount' WHERE p_id = '$user_id' AND banking_service_name = '$banking_service_name'";
                                 mysqli_query($conn, $sql);
+                                $no_of_rides = $no_of_rides + 1;
+                                $sql = "UPDATE passengers SET no_of_rides = '$no_of_rides' WHERE p_id = '$user_id'";
+                                mysqli_query($conn, $sql);
                                 $sql = "INSERT INTO ride_history (p_id, bus_no, start_from, end_at, time, ride_cost, seat_info, ride_date)
                                         VALUES ('$user_id', '$bus_no', '$start_from', '$end_at', '$time', '$ride_cost', '$seat_info', '$ride_date')";
                                 if(mysqli_query($conn, $sql)) {
@@ -86,7 +90,7 @@
                                 }
                                 $_SESSION['start_from'] = null; $_SESSION['end_at'] = null; $_SESSION['bus_no'] = null; $_SESSION['time'] = null;
                                 $_SESSION['seats'] = null; $_SESSION['discount'] = null; $_SESSION['cost'] = null; $_SESSION['ride_cost'] = null;
-                                $_SESSION['ride_date'] = null; $_SESSION['ride_date'] = null; $_SESSION['seat_info'] = null;
+                                $_SESSION['ride_date'] = null; $_SESSION['ride_date'] = null; $_SESSION['seat_info'] = null; $_SESSION['no_of_rides'] = null;
                                 $_SESSION['seat1'] = null; $_SESSION['seat2'] = null; $_SESSION['seat3'] = null; $_SESSION['seat4'] = null; $_SESSION['seat5'] = null;
                             }
                         }

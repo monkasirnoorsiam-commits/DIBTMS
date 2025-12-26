@@ -27,7 +27,7 @@
             LEFT JOIN bus_managers m ON u.id = m.m_id WHERE u.id LIKE '2%'";
         }
         elseif($_SESSION["type"] == "passenger"){
-            $sql = "SELECT u.*, p.discount 
+            $sql = "SELECT u.*, p.discount, p.no_of_rides
             FROM users u
             LEFT JOIN passengers p ON u.id = p.p_id WHERE u.id LIKE '3%'";
         }
@@ -72,6 +72,7 @@
                         ?> <th>Salary</th>
                     <?php } elseif($_SESSION["type"] == "passenger"){
                         ?> <th>Discount</th>
+                        <th>No of rides</th>
                     <?php } } ?>
                 </tr>
             </thead>
@@ -93,6 +94,7 @@
                         }
                         elseif($_SESSION["type"] == "passenger"){
                             echo "<td>" . htmlspecialchars($row['discount']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['no_of_rides']) . "</td>";
                         }
                     }
                     echo "</tr>";
@@ -146,14 +148,13 @@
                 else{
                     $id = $row["id"] + 1;
                 }
-                $no_of_rides = 0;
                 $today = new DateTime();
                 $dob = new DateTime($date_of_birth);
                 $dobFormatted = $dob->format('Y-m-d');
                 $age = (int)($dob->diff($today)->y);
                 $reg_date = $today->format('Y-m-d H:i:s');
-                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, no_of_rides, age, reg_date)
-                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$no_of_rides', '$age', '$reg_date')";
+                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, age, reg_date)
+                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$age', '$reg_date')";
                 
                 if(mysqli_query($conn, $sql)) {
                     echo "<script>alert('Bus manager added successfully!'); window.location.href='show.php';</script>";

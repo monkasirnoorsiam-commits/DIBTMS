@@ -99,11 +99,11 @@
                 $age = (int)($dob->diff($today)->y);
                 $discount = (5/100);
                 $reg_date = $today->format('Y-m-d H:i:s');
-                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, no_of_rides, age, reg_date)
-                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$no_of_rides', '$age', '$reg_date')";
+                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, age, reg_date)
+                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$age', '$reg_date')";
                 try{
                     mysqli_query($conn, $sql);
-                    $sql = "INSERT INTO passengers (p_id, discount) VALUES ('$id', '$discount')";
+                    $sql = "INSERT INTO passengers (p_id, discount, no_of_rides) VALUES ('$id', '$discount', '$no_of_rides')";
                     mysqli_query($conn, $sql);
                     echo"You are now registered! Now log in to your account";
                     header("Location: login.php");

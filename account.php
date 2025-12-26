@@ -5,7 +5,6 @@
         header("Location: login.php");
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +29,7 @@
             WHERE u.id = '$user_id'";
     }
     else {
-        $sql = "SELECT u.*, p.discount 
+        $sql = "SELECT u.*, p.discount, p.no_of_rides
             FROM users u 
             LEFT JOIN passengers p ON u.id = p.p_id 
             WHERE u.id = '$user_id'";
@@ -62,6 +61,4 @@
 <?php 
     include("footer.html");
     mysqli_close($conn);
-
 ?>
-
