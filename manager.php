@@ -17,6 +17,7 @@
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
         <input type="submit" name="show2" value="Show Bus Services"><br>
         <input type="submit" name="show3" value="Show Bus Timings"><br>
+         <input type="submit" name="show4" value="Passenger Feedback Summary"><br>
     </form>
 </body>
 </html>
@@ -27,5 +28,8 @@
     elseif(isset($_POST["show3"])){
         header("Location: timings.php");
     }
+    elseif(isset($_POST["show4"])){ 
+    header("Location: feedback.php");
+}
     include("footer.html");
 ?>
