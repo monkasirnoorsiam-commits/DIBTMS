@@ -5,6 +5,7 @@
         header("Location: login.php");
     }
 ?>
+//html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,4 +62,5 @@
 <?php 
     include("footer.html");
     mysqli_close($conn);
+
 ?>
