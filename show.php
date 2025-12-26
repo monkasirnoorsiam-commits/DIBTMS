@@ -77,7 +77,6 @@
             </thead>
             <tbody>
                 <?php
-                //echo$_SESSION["type"];
                 while($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
                     echo "<td>" . htmlspecialchars($row['id']) . "</td>";
@@ -177,6 +176,17 @@
         }
         else if ($_SESSION["type"] == "passenger"){ ?>
             <div class="button-container">
+            <h2>Update discount of a passenger</h2>
+            <form method="post" class="delete-form">
+                <input type="number" name="id" placeholder="Passenger ID" required>
+                <input type="number" name="discount" placeholder="Discount" required>
+                <button type="submit" name="update1" class="edit-btn">Update</button>
+                </form>
+            <h2>Update discount of all passengers</h2>
+            <form method="post" class="delete-form">
+                <input type="number" name="discount" placeholder="Discount" required>
+                <button type="submit" name="update2" class="edit-btn">Update</button>
+                </form>
             <h2>Delete a passenger</h2>
             <form method="post" class="delete-form">
                 <input type="number" name="id" placeholder="Passenger ID" required>
@@ -184,6 +194,27 @@
                 </form>
             </div>
         <?php 
+        if(isset($_POST['update1'])) {
+            $user_id = $_POST["id"];
+            $discount = $_POST["discount"];
+            $sql = "UPDATE passengers SET discount = $discount WHERE p_id = '$user_id'";
+            if(mysqli_query($conn, $sql)) {
+                echo "<script>alert('Updated discount successfully!'); window.location.href='show.php';</script>";
+            } 
+            else {
+                echo "<script>alert('Error updating discount!');</script>";
+            }
+        }
+        if(isset($_POST['update2'])) {
+            $discount = $_POST["discount"];
+            $sql = "UPDATE passengers SET discount = $discount";
+            if(mysqli_query($conn, $sql)) {
+                echo "<script>alert('Updated discount successfully!'); window.location.href='show.php';</script>";
+            } 
+            else {
+                echo "<script>alert('Error updating discount!');</script>";
+            }
+        }
         if(isset($_POST['delete'])) {
             $user_id = $_POST["id"];
             $sql = "DELETE FROM users U LEFT JOIN passengers P ON U.id = P.p_id WHERE U.id = '$user_id'";

@@ -18,7 +18,7 @@
         <input type="submit" name="book" value="Book a ride"><br>
         <input type="submit" name="payment" value="Set payment options"><br>
         <input type="submit" name="review" value="Give reviews"><br>
-        <input type="submit" name="history" value="History"><br>
+        <input type="submit" name="history" value="Your Ride History"><br>
         <input type="submit" name="account" value="Account info"><br>
     </form>
 </body>

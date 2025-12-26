@@ -55,6 +55,11 @@
             <input type="number" name="cost" placeholder="Ride Cost" required>
             <button type="submit" name="add" class="edit-btn">Add</button>
         </form>
+        <h2>Clear seats of a bus service</h2>
+        <form method="post" class="add-form">
+            <input type="number" name="bus_no" placeholder="Bus Number" required>
+            <button type="submit" name="clear" class="edit-btn">Clear</button>
+        </form>
         <h2>Delete a bus service</h2>
         <form method="post" class="delete-form">
             <input type="number" name="bus_no" placeholder="Bus Number" required>
@@ -89,6 +94,16 @@
                 $counter = $counter + 1;
             }
             echo "<script>alert('Bus service added successfully!'); window.location.href='services.php';</script>";
+        }
+        if(isset($_POST['clear'])){
+            $bus_no = mysqli_real_escape_string($conn, $_POST['bus_no']);
+            $sql = "UPDATE bus_seats SET vacant = '1' WHERE bus_no = '$bus_no'";
+            if(mysqli_query($conn, $sql)) {
+                echo "<script>alert('Seats cleared successfully!'); window.location.href='services.php';</script>";
+            } 
+            else {
+                echo "<script>alert('Error clearing seats!');</script>";
+            }
         }
         if(isset($_POST['delete'])) {
             $bus_no = mysqli_real_escape_string($conn, $_POST['bus_no']);
