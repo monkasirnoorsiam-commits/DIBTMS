@@ -1,131 +1,154 @@
-/* Common styles */
-:root {
-    --primary-color: #1a73e8;
-    --secondary-color: #4285f4;
-    --text-color: #333;
-    --light-gray: #f5f5f5;
-    --border-color: #ddd;
+/* Body layout with sticky footer */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column; 
+    min-height: 100vh;
+    background-image: url('../bg.jpg');
+/* Your background image */
+    background-size: cover;
+  background-position: center -175px;
+    background-repeat: no-repeat;
 }
-/* Header styles */
+
+/* Main content fills the space above footer */
+.main-content {
+    flex: 1; /* grows to fill remaining space above footer */
+    padding: 20px;
+    color: #3e2d2d;
+}
+
+/* Header bar */
 header {
-    background-color: var(--light-gray);
-    padding: 1rem;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+
 header img {
-    max-width: 150px;
+    max-width: 120px;
     height: auto;
-    margin-bottom: 1rem;
 }
-header h2 {
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-    font-family: 'Arial', sans-serif;
-}
-/* Navigation styles */
+
+/* Navigation links on the right */
 nav {
-    margin: 1rem 0;
+    margin-left: auto;
 }
+
 nav a {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    margin: 0 0.5rem;
-    color: var(--primary-color);
+    padding: 6px 12px;
+    margin: 0 3px;
+    color: #1a73e8;
     text-decoration: none;
     border-radius: 4px;
-    transition: background-color 0.3s;
 }
+
 nav a:hover {
-    background-color: var(--secondary-color);
+    background-color: #4285f4;
     color: white;
 }
-/* Footer styles */
+
+/* Footer / Contact Us at the bottom */
 footer {
-    background-color: var(--light-gray);
-    padding: 2rem;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 15px 20px;
     text-align: center;
-    margin-top: 2rem;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid #ddd;
 }
-footer a {
-    color: var(--primary-color);
+
+/* Footer content styling */
+.footer-content h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.footer-content .author-info p {
+    margin: 5px 0;
+}
+
+.footer-content .author-info a {
+    color: #1a73e8;
     text-decoration: none;
-    display: inline-block;
-    margin: 0.5rem 0;
 }
-footer a:hover {
+
+.footer-content .author-info a:hover {
     text-decoration: underline;
 }
-/* Account page styles */
+
+
+/* Other content boxes */
 .account-info {
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid var(--border-color);
+    background-color: rgba(255,255,255,0.9);
+    border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: var(--light-gray);
 }
+
 .account-info h2 {
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
 }
+
 .account-info p {
     margin: 10px 0;
-    line-height: 1.5;
-    color: var(--text-color);
 }
+
 .account-info strong {
     display: inline-block;
     width: 150px;
-    color: var(--primary-color);
+    color: #1a73e8;
 }
-account strong {
-    display: inline-block;
-    width: 150px;
-    color: var(--primary-color);
-}
-/* Payment options styles */
+
 .payment-options {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
 }
+
 .payment-options h2 {
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
     text-align: center;
+    color: #333;
+    margin-bottom: 15px;
 }
+
 .payment-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background-color: rgba(255,255,255,0.9);
 }
+
 .payment-table th,
 .payment-table td {
-    padding: 12px 15px;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
     text-align: left;
-    border-bottom: 1px solid var(--border-color);
 }
+
 .payment-table th {
-    background-color: var(--primary-color);
+    background-color: #1a73e8;
     color: white;
-    font-weight: bold;
 }
+
 .payment-table tr:hover {
-    background-color: var(--light-gray);
+    background-color: rgba(245,245,245,0.9);
 }
+
 .edit-btn {
     padding: 6px 12px;
-    background-color: var(--secondary-color);
+    background-color: #4285f4;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
+
 .edit-btn:hover {
-    background-color: var(--primary-color);
+    background-color: #1a73e8;
 }
