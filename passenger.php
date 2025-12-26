@@ -12,7 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIBTMS Passenger</title>
 </head>
-<body>
+
+
+<body style="min-height:100vh; display:flex; flex-direction:column;">
+
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
         <h2>Actions: </h2>
         <input type="submit" name="book" value="Book a ride"><br>
@@ -21,8 +24,7 @@
         <input type="submit" name="history" value="Your Ride History"><br>
         <input type="submit" name="account" value="Account info"><br>
     </form>
-</body>
-</html>
+
 <?php
     if(isset($_POST["book"])){
         header("Location: booking.php");
@@ -36,5 +38,12 @@
     elseif(isset($_POST["account"])){
         header("Location: account.php");
     }
-    include("footer.html");
 ?>
+
+  
+    <div style="margin-top:auto;">
+        <?php include("footer.html"); ?>
+    </div>
+
+</body>
+</html>
