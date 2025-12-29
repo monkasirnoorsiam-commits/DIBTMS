@@ -50,35 +50,17 @@
         $date_of_birth = $_POST["date_of_birth"];
         if(isset($_POST["address"])){
             $address = $_POST["address"];
-            if(empty($name)){
-                echo"Please enter your name";
-            }
-            elseif(empty($email)){
-                echo"Please enter your email";
-            }
-            elseif(substr($email, 0, 5) == "admin" OR substr($email, 0, 7) == "manager"){
-                echo"You cannot use this email";
-            }
-            elseif(empty($phone_no)){
-                echo"Please enter your phone number";
+            if(substr($email, 0, 5) == "admin" OR substr($email, 0, 7) == "manager"){
+                echo"<script>alert(You cannot use this email); window.location.href='registration.php';</script>";
             }
             elseif(substr($phone_no, 0, 9) == "013333333" OR substr($phone_no, 0, 9) == "014444444"){
-                echo"You cannot use this phone number";
+                echo"<script>alert(You cannot use this phone number); window.location.href='registration.php';</script>";
             }
             elseif(strlen($phone_no) != 11){
-                echo"Please use a valid phone number";
-            }
-            elseif(empty($password)){
-                echo"Please enter a password";
-            }
-            elseif(empty($nid)){
-                echo"Please enter your nid";
+                echo"<script>alert(Please use a valid phone number); window.location.href='registration.php';</script>";
             }
             elseif(strlen($nid) != 10){
-                echo"Please use a valid NID";
-            }
-            elseif(empty($date_of_birth)){
-                echo"Please enter your date of birth";
+                echo"<script>alert(Please use a valid NID); window.location.href='registration.php';</script>";
             }
             else{
                 $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -99,22 +81,32 @@
                 $age = (int)($dob->diff($today)->y);
                 $discount = (5/100);
                 $reg_date = $today->format('Y-m-d H:i:s');
-                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, age, reg_date)
-                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$age', '$reg_date')";
-                try{
+                $sql = "SELECT * FROM users WHERE email = '$email' OR phone_no = '$phone_no' OR nid = '$nid'";
+                $result = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($result);
+                if(empty($row)){
+                    $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, age, reg_date)
+                            VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$age', '$reg_date')";
                     mysqli_query($conn, $sql);
                     $sql = "INSERT INTO passengers (p_id, discount, no_of_rides) VALUES ('$id', '$discount', '$no_of_rides')";
                     mysqli_query($conn, $sql);
-                    echo"You are now registered! Now log in to your account";
-                    header("Location: login.php");
+                    $sql = "INSERT INTO payment_options (p_id, banking_service_name, acc_number, amount) VALUES 
+                            ('$id', 'Bkash', null, null), ('$id', 'Nagad', null, null), ('$id', 'Rocket', null, null), ('$id', 'Visa', null, null), ('$id', 'Mastercard', null, null)";
+                    try{
+                        mysqli_query($conn, $sql);
+                        echo"<script>alert(You are now registered! Now log in to your account); window.location.href='login.php';</script>";
+                    }
+                    catch(mysqli_sql_exception){
+                        echo"<script>alert(Unexpected error occured); window.location.href='registration.php';</script>";
+                    }
                 }
-                catch(mysqli_sql_exception){
-                    echo"That email or phone number is taken";
+                else {
+                    echo"<script>alert(That email or phone number or NID is taken); window.location.href='registration.php';</script>";
                 }
             }
         }
         else {
-            echo"Please make a selection";
+            echo"<script>alert(Please make a selection); window.location.href='registration.php';</script>";
         }
     }
     include("footer.html");

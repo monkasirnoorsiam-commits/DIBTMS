@@ -153,9 +153,10 @@
                 $dobFormatted = $dob->format('Y-m-d');
                 $age = (int)($dob->diff($today)->y);
                 $reg_date = $today->format('Y-m-d H:i:s');
-                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, no_of_rides, age, reg_date)
-                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$no_of_rides', '$age', '$reg_date')";
-                
+                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, age, reg_date)
+                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$age', '$reg_date')";
+                mysqli_query($conn, $sql);
+                $sql = "INSERT INTO bus_managers (m_id, salary) VALUES ('$id', '$salary')";
                 if(mysqli_query($conn, $sql)) {
                     echo "<script>alert('Bus manager added successfully!'); window.location.href='show.php';</script>";
                 } 
@@ -198,7 +199,7 @@
         if(isset($_POST['update1'])) {
             $user_id = $_POST["id"];
             $discount = $_POST["discount"];
-            $sql = "UPDATE passengers SET discount = $discount WHERE p_id = '$user_id'";
+            $sql = "UPDATE passengers SET discount = '$discount' WHERE p_id = '$user_id'";
             if(mysqli_query($conn, $sql)) {
                 echo "<script>alert('Updated discount successfully!'); window.location.href='show.php';</script>";
             } 
@@ -208,7 +209,7 @@
         }
         if(isset($_POST['update2'])) {
             $discount = $_POST["discount"];
-            $sql = "UPDATE passengers SET discount = $discount";
+            $sql = "UPDATE passengers SET discount = '$discount'";
             if(mysqli_query($conn, $sql)) {
                 echo "<script>alert('Updated discount successfully!'); window.location.href='show.php';</script>";
             } 
@@ -218,7 +219,7 @@
         }
         if(isset($_POST['delete'])) {
             $user_id = $_POST["id"];
-            $sql = "DELETE FROM users U LEFT JOIN passengers P ON U.id = P.p_id WHERE U.id = '$user_id'";
+            $sql = "DELETE U, P, PA, R FROM users U LEFT JOIN passengers P ON U.id = P.p_id LEFT JOIN payment_options PA ON U.id = PA.p_id LEFT JOIN ride_history R ON U.id = R.p_id WHERE U.id = '$user_id'";
             if(mysqli_query($conn, $sql)) {
                 echo "<script>alert('Passenger removed successfully!'); window.location.href='show.php';</script>";
             } 

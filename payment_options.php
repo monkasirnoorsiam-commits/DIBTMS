@@ -46,7 +46,7 @@
             </tbody>
         </table>
     <div class="button-container">
-        <h2>Add a payment option</h2>
+        <h2>Update payment option</h2>
         <form method="post" class="add-form">
             <select name="banking_service" required>
                 <option value="Bkash">Bkash</option>
@@ -57,42 +57,20 @@
             </select>
             <input type="text" name="acc_number" placeholder="Account Number" required>
             <input type="number" name="amount" placeholder="Initial Amount" required>
-            <button type="submit" name="add" class="edit-btn">Add</button>
+            <button type="submit" name="update" class="edit-btn">Update</button>
         </form>
-        <h2>Delete a payment option</h2>
-        <form method="post" class="delete-form">
-            <input type="text" name="banking_service" placeholder="Banking Service Name" required>
-            <input type="number" name="acc_number" placeholder="Account Number" required>
-            <button type="submit" name="delete" class="edit-btn">Delete</button>
-            </form>
         </div>
         <?php
-        if(isset($_POST['add'])) {
+        if(isset($_POST['update'])) {
             $banking_service = mysqli_real_escape_string($conn, $_POST['banking_service']);
             $acc_number = mysqli_real_escape_string($conn, $_POST['acc_number']);
             $amount = floatval($_POST['amount']);
-            
-            $sql = "INSERT INTO payment_options (p_id, banking_service_name, acc_number, amount) 
-                    VALUES ('$user_id', '$banking_service', '$acc_number', '$amount')";
-            
+            $sql = "UPDATE payment_options SET acc_number = '$acc_number', amount = '$amount' WHERE p_id = '$user_id' AND banking_service_name = '$banking_service'";
             if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Payment option added successfully!'); window.location.href='payment_options.php';</script>";
+                echo "<script>alert('Payment option updated successfully!'); window.location.href='payment_options.php';</script>";
             } 
             else {
-                echo "<script>alert('Error adding payment option!');</script>";
-            }
-        }
-        if(isset($_POST['delete'])) {
-            $user_id = $_SESSION["id"];
-            $banking_service = mysqli_real_escape_string($conn, $_POST['banking_service']);
-            $acc_number = mysqli_real_escape_string($conn, $_POST['acc_number']);
-            $sql = "DELETE FROM payment_options WHERE p_id = '$user_id' AND acc_number = '$acc_number' AND banking_service_name = '$banking_service'";
-            
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Payment option deleted successfully!'); window.location.href='payment_options.php';</script>";
-            } 
-            else {
-                echo "<script>alert('Error deleting payment option!');</script>";
+                echo "<script>alert('Error updating payment option!');</script>";
             }
         }
         include("footer.html");
