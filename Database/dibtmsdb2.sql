@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2025 at 05:02 PM
+-- Generation Time: Dec 30, 2025 at 06:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,6 +39,44 @@ INSERT INTO `admins` (`ad_id`) VALUES
 (100001),
 (100002),
 (100003);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank`
+--
+
+CREATE TABLE `bank` (
+  `banking_service_name` varchar(20) NOT NULL,
+  `acc_number` varchar(30) NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bank`
+--
+
+INSERT INTO `bank` (`banking_service_name`, `acc_number`, `amount`) VALUES
+('Bkash', '01644848487', 500),
+('Bkash', '01716165887', 600),
+('Bkash', '01948749815', 1000),
+('Bkash', '01476451687', 250),
+('Bkash', '01868641068', 5000),
+('Bkash', '01577864515', 3300),
+('Bkash', '01471065581', 2002),
+('Bkash', '01177641848', 1833),
+('Bkash', '01598641861', 4436),
+('Bkash', '01716498488', 900),
+('Nagad', '01716498488', 4905),
+('Nagad', '01644848487', 700),
+('Nagad', '01716165887', 4300),
+('Nagad', '01948749815', 1500),
+('Nagad', '01476451687', 900),
+('Nagad', '01868641068', 1687),
+('Nagad', '01577864515', 3662),
+('Nagad', '01471065581', 1470),
+('Nagad', '01177641848', 2500),
+('Nagad', '01598641861', 2000);
 
 -- --------------------------------------------------------
 
@@ -237,7 +275,7 @@ INSERT INTO `payment_options` (`p_id`, `banking_service_name`, `acc_number`, `am
 (300002, 'Rocket', NULL, NULL),
 (300002, 'Visa', NULL, NULL),
 (300002, 'Mastercard', NULL, NULL),
-(300003, 'Bkash', NULL, NULL),
+(300003, 'Bkash', '01577864515', 3300),
 (300003, 'Nagad', NULL, NULL),
 (300003, 'Rocket', NULL, NULL),
 (300003, 'Visa', NULL, NULL),
@@ -286,22 +324,6 @@ CREATE TABLE `ride_history` (
 
 INSERT INTO `ride_history` (`p_id`, `bus_no`, `start_from`, `end_at`, `time`, `ride_cost`, `seat_info`, `ride_date`) VALUES
 (300001, 1001, 'Dhanmondi', 'Banani', '12:00:00', 95, '[ 1, , , , ,  ]', '2025-12-27');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `staffs`
---
-
-CREATE TABLE `staffs` (
-  `s_id` int(6) NOT NULL,
-  `shift` time NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `manager_id` int(6) NOT NULL,
-  `assigned_duties` varchar(100) NOT NULL,
-  `remarks` varchar(100) NOT NULL,
-  `salary` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -426,14 +448,6 @@ ALTER TABLE `ride_history`
   ADD KEY `bus_no` (`bus_no`);
 
 --
--- Indexes for table `staffs`
---
-ALTER TABLE `staffs`
-  ADD PRIMARY KEY (`s_id`),
-  ADD KEY `s_id` (`s_id`),
-  ADD KEY `manager_id` (`manager_id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -490,13 +504,6 @@ ALTER TABLE `reviews`
 ALTER TABLE `ride_history`
   ADD CONSTRAINT `ride_history_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `passengers` (`p_id`),
   ADD CONSTRAINT `ride_history_ibfk_2` FOREIGN KEY (`bus_no`) REFERENCES `bus_service` (`bus_no`);
-
---
--- Constraints for table `staffs`
---
-ALTER TABLE `staffs`
-  ADD CONSTRAINT `staffs_ibfk_1` FOREIGN KEY (`s_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `staffs_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `bus_managers` (`m_id`);
 
 --
 -- Constraints for table `time_slots`

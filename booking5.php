@@ -45,10 +45,11 @@
                         </form>
                         <?php if(isset($_POST['select5'])){
                             $banking_service_name = mysqli_real_escape_string($conn, $_POST['payment_option']);
-                            $sql = "SELECT amount FROM payment_options WHERE p_id = '$user_id' AND banking_service_name = '$banking_service_name'";
+                            $sql = "SELECT amount, acc_number FROM payment_options WHERE p_id = '$user_id' AND banking_service_name = '$banking_service_name'";
                             $result = mysqli_query($conn, $sql);
                             $row = mysqli_fetch_assoc($result);
                             $amount = $row['amount'];
+                            $acc_number = $row['acc_number'];
                             if (($amount - $ride_cost) < 0){
                                 echo"<script>alert('Insufficient funds!'); window.location.href='booking5.php';</script>";
                             }
@@ -75,6 +76,8 @@
                                     }
                                 }
                                 $amount = $amount - $ride_cost;
+                                $sql = "UPDATE bank SET amount = '$amount' WHERE acc_number = '$acc_number' AND banking_service_name = '$banking_service_name'";
+                                mysqli_query($conn, $sql);
                                 $sql = "UPDATE payment_options SET amount = '$amount' WHERE p_id = '$user_id' AND banking_service_name = '$banking_service_name'";
                                 mysqli_query($conn, $sql);
                                 $no_of_rides = $no_of_rides + 1;

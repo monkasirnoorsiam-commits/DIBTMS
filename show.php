@@ -39,11 +39,10 @@
             LEFT JOIN staffs s ON u.id = s.s_id";
         }
     }
-    //elseif(substr($_SESSION["id"], 0, 1) == 3){}
+    else {}
     if ($sql != null){
         $result = mysqli_query($conn, $sql);
         ?>
-<body>
     <div class='payment-options'>
         <?php if(substr($_SESSION["id"], 0, 1) == 1){
             if($_SESSION["type"] == "admin"){
@@ -53,10 +52,10 @@
 
         <?php } elseif($_SESSION["type"] == "passenger"){
             ?> <h2 class="section-title">List Of All Registered Passengers</h2> 
-        <?php } } elseif(substr($_SESSION["id"], 0, 1) == 2){
-            if($_SESSION["type"] == "staff"){ 
+        <?php } } elseif(substr($_SESSION["id"], 0, 1) == 2){}
+            /*if($_SESSION["type"] == "staff"){ 
             ?> <h2 class="section-title">List Of All Staffs</h2> 
-        <?php } } elseif(substr($_SESSION["id"], 0, 1) == 3){} ?>
+        <?php } } elseif(substr($_SESSION["id"], 0, 1) == 3){}*/ ?> 
         <table class="payment-table">
             <thead>
                 <tr>
@@ -229,7 +228,6 @@
         }
         } }
         include("footer.html");
-        $_SESSION["type"] = null;
         mysqli_close($conn);
     ?>
 </body>

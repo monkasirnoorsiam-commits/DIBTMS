@@ -56,7 +56,6 @@
                 <option value="Mastercard">Mastercard</option>
             </select>
             <input type="text" name="acc_number" placeholder="Account Number" required>
-            <input type="number" name="amount" placeholder="Initial Amount" required>
             <button type="submit" name="update" class="edit-btn">Update</button>
         </form>
         </div>
@@ -64,13 +63,30 @@
         if(isset($_POST['update'])) {
             $banking_service = mysqli_real_escape_string($conn, $_POST['banking_service']);
             $acc_number = mysqli_real_escape_string($conn, $_POST['acc_number']);
-            $amount = floatval($_POST['amount']);
-            $sql = "UPDATE payment_options SET acc_number = '$acc_number', amount = '$amount' WHERE p_id = '$user_id' AND banking_service_name = '$banking_service'";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Payment option updated successfully!'); window.location.href='payment_options.php';</script>";
-            } 
+            $sql = "SELECT p_id FROM payment_options WHERE acc_number = '$acc_number'";
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($result);
+            $p_id = $row['p_id'];
+            if(($user_id != $p_id) AND !(empty($row))){
+                echo "<script>alert('This account is in use by another user'); window.location.href='payment_options.php';</script>";
+            }
             else {
-                echo "<script>alert('Error updating payment option!');</script>";
+                $sql = "SELECT amount FROM bank WHERE banking_service_name = '$banking_service' AND acc_number = '$acc_number'";
+                $result = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($result);
+                if(empty($row)){
+                    echo "<script>alert('Bank services do not contain this account'); window.location.href='payment_options.php';</script>";
+                }
+                else{
+                    $amount = $row['amount'];
+                    $sql = "UPDATE payment_options SET acc_number = '$acc_number', amount = '$amount' WHERE p_id = '$user_id' AND banking_service_name = '$banking_service'";
+                    if(mysqli_query($conn, $sql)) {
+                        echo "<script>alert('Payment option updated successfully!'); window.location.href='payment_options.php';</script>";
+                    } 
+                    else {
+                        echo "<script>alert('Error updating payment option!');</script>";
+                    }
+                }
             }
         }
         include("footer.html");
