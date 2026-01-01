@@ -348,3 +348,51 @@ footer {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
 }
+.action-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.action-btn {
+    background-color: rgb(0, 30, 66);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    text-align: center;
+    transform: skewX(-20deg);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.action-btn span {
+    display: block;
+    transform: skewX(20deg);
+}
+
+.action-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.action-btn:hover::after {
+    width: 100%;
+}
+
