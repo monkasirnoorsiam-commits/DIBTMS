@@ -10,14 +10,17 @@
     <title>DIBTMS Login</title>
 </head>
 <body style="min-height:100vh; display:flex; flex-direction:column;">
- <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
-        <h2>Log into your account</h2>
-        Email or phone number:<br>
-        <input type="text" name="input"><br>
-        Password:<br>
-        <input type="password" name="password"><br>
-        <input type="submit" name="submit" value="login"><br>
-    </form>
+ <form class="login-form" action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
+    <h2 class="login-title">Log into your account</h2>
+    <label class="login-label">Email or phone number:</label><br>
+    <input class="login-input" type="text" name="input"><br>
+    
+    <label class="login-label">Password:</label><br>
+    <input class="login-input" type="password" name="password"><br>
+    
+    <input class="login-button" type="submit" name="submit" value="Login"><br>
+</form>
+
 
 <?php
     if($_SERVER["REQUEST_METHOD"] == "POST"){
