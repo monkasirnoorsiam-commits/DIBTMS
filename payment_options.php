@@ -24,7 +24,16 @@
 ?>
 <body>
     <div class='payment-options'>
-        <h2>Your Payment Options</h2>
+           <h2 style="background:rgb(192,202,51);
+           color:rgb(255,255,255);
+           padding:10px 20px;
+           display:inline-block;
+           transform: skew(-20deg);">
+    Your payment option
+</h2>
+
+    
+        <div class="payment-top-row">
         <table class="payment-table">
             <thead>
                 <tr>
@@ -46,7 +55,15 @@
             </tbody>
         </table>
     <div class="button-container">
-        <h2>Update payment option</h2>
+       <h2 style="background:rgb(192,202,51);
+           color:rgb(255,255,255);
+           padding:10px 20px;
+           display:inline-block;
+           transform: skew(-20deg);">
+    Update payment option
+</h2>
+
+
         <form method="post" class="add-form">
             <select name="banking_service" required>
                 <option value="Bkash">Bkash</option>
@@ -55,7 +72,9 @@
                 <option value="Visa">Visa</option>
                 <option value="Mastercard">Mastercard</option>
             </select>
-            <input type="text" name="acc_number" placeholder="Account Number" required>
+            
+           <input type="search" class="payment-search" placeholder="Search payment options">
+
             <button type="submit" name="update" class="edit-btn">Update</button>
         </form>
         </div>
@@ -89,7 +108,7 @@
                 }
             }
         }
-        include("footer.html");
+      //  include("footer.html");
         mysqli_close($conn);
     ?>
 </body>
