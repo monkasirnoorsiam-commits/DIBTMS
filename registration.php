@@ -9,8 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIBTMS Registration</title>
 </head>
-<body>
-    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
+<body class="no-footer">
+  <form class="registration-form" action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
+
         <h2>Registration form</h2>
         Name:
         <input type="text" name="name" placeholder="Name" required><br>
@@ -38,8 +39,7 @@
         </select>
         <input type="submit" name="submit" value="register"><br>
     </form>
-</body>
-</html>
+
 <?php
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS);
