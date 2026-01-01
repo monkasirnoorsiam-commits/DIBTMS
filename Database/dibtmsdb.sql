@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2026 at 10:39 AM
+-- Generation Time: Jan 01, 2026 at 09:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -70,7 +70,7 @@ INSERT INTO `bank` (`banking_service_name`, `acc_number`, `amount`) VALUES
 ('Nagad', '01716498488', 4905),
 ('Nagad', '01644848487', 700),
 ('Nagad', '01716165887', 4300),
-('Nagad', '01948749815', 1500),
+('Nagad', '01948749815', 1011),
 ('Nagad', '01476451687', 900),
 ('Nagad', '01868641068', 1687),
 ('Nagad', '01577864515', 3662),
@@ -95,8 +95,8 @@ CREATE TABLE `bus_managers` (
 
 INSERT INTO `bus_managers` (`m_id`, `salary`) VALUES
 (200001, 60000),
-(200002, 20000),
-(200003, 10);
+(200002, 35000),
+(200003, 30000);
 
 -- --------------------------------------------------------
 
@@ -115,13 +115,13 @@ CREATE TABLE `bus_seats` (
 --
 
 INSERT INTO `bus_seats` (`bus_no`, `seat_no`, `vacant`) VALUES
-(1001, 1, 0),
+(1001, 1, 1),
 (1001, 2, 1),
 (1001, 3, 1),
 (1001, 4, 1),
 (1001, 5, 1),
-(1001, 6, 1),
-(1001, 7, 1),
+(1001, 6, 0),
+(1001, 7, 0),
 (1001, 8, 1),
 (1001, 9, 1),
 (1001, 10, 1),
@@ -209,7 +209,32 @@ INSERT INTO `bus_seats` (`bus_no`, `seat_no`, `vacant`) VALUES
 (2001, 27, 1),
 (2001, 28, 1),
 (2001, 29, 1),
-(2001, 30, 1);
+(2001, 30, 1),
+(3001, 1, 0),
+(3001, 2, 1),
+(3001, 3, 0),
+(3001, 4, 1),
+(3001, 5, 0),
+(3001, 6, 1),
+(3001, 7, 1),
+(3001, 8, 1),
+(3001, 9, 1),
+(3001, 10, 1),
+(3001, 11, 1),
+(3001, 12, 1),
+(3001, 13, 1),
+(3001, 14, 1),
+(3001, 15, 1),
+(3001, 16, 1),
+(3001, 17, 1),
+(3001, 18, 1),
+(3001, 19, 1),
+(3001, 20, 1),
+(3001, 21, 1),
+(3001, 22, 1),
+(3001, 23, 1),
+(3001, 24, 1),
+(3001, 25, 1);
 
 -- --------------------------------------------------------
 
@@ -231,10 +256,11 @@ CREATE TABLE `bus_service` (
 --
 
 INSERT INTO `bus_service` (`bus_no`, `m_id`, `type`, `total_seats`, `description`, `cost`) VALUES
-(1001, 200001, 'AC', 20, 'Gulshan - Dhanmondi - Banani - Uttara Premium Service ', 100),
+(1001, 200001, 'AC', 18, 'Gulshan - Dhanmondi - Banani - Uttara Premium Service ', 100),
 (1002, 200001, 'Non-AC', 30, 'Gulistan - Mohammadpur - Puran Dhaka - Mohakhali Regular Service', 50),
 (1003, 200001, 'AC', 15, 'Airport - Banani - Gulshan - Mogbazar Premium Service', 100),
-(2001, 200002, 'Non-AC', 30, 'Kalshi Flyover - Mirpur - Agargaon - Farmgate - Karwan Bazar Regular Service', 40);
+(2001, 200002, 'Non-AC', 30, 'Kalshi Flyover - Mirpur - Agargaon - Farmgate - Karwan Bazar Regular Service', 40),
+(3001, 200003, 'AC', 22, 'Science Lab - Shishu Park - Cantonment - Mohakhali - Gulshan Premium Service', 105);
 
 -- --------------------------------------------------------
 
@@ -253,10 +279,10 @@ CREATE TABLE `passengers` (
 --
 
 INSERT INTO `passengers` (`p_id`, `discount`, `no_of_rides`) VALUES
-(300001, 0.05, 1),
-(300002, 0.05, 0),
-(300003, 0.05, 0),
-(300004, 0.05, 0);
+(300001, 0.07, 1),
+(300002, 0.07, 0),
+(300003, 0.07, 0),
+(300004, 0.05, 2);
 
 -- --------------------------------------------------------
 
@@ -290,7 +316,12 @@ INSERT INTO `payment_options` (`p_id`, `banking_service_name`, `acc_number`, `am
 (300003, 'Nagad', NULL, NULL),
 (300003, 'Rocket', NULL, NULL),
 (300003, 'Visa', NULL, NULL),
-(300003, 'Mastercard', NULL, NULL);
+(300003, 'Mastercard', NULL, NULL),
+(300004, 'Bkash', NULL, NULL),
+(300004, 'Nagad', '01948749815', 1011),
+(300004, 'Rocket', NULL, NULL),
+(300004, 'Visa', NULL, NULL),
+(300004, 'Mastercard', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -334,7 +365,9 @@ CREATE TABLE `ride_history` (
 --
 
 INSERT INTO `ride_history` (`p_id`, `bus_no`, `start_from`, `end_at`, `time`, `ride_cost`, `seat_info`, `ride_date`) VALUES
-(300001, 1001, 'Dhanmondi', 'Banani', '12:00:00', 95, '[ 1, , , , ,  ]', '2025-12-27');
+(300001, 1001, 'Dhanmondi', 'Banani', '12:00:00', 95, '[ 1, , , , ,  ]', '2025-12-27'),
+(300004, 3001, 'Science Lab', 'Shishu Park', '08:30:00', 299, '[ 1, 3, 5, , ,  ]', '2026-01-02'),
+(300004, 1001, 'Gulshan', 'Dhanmondi', '10:00:00', 190, '[ 6, 7, , , ,  ]', '2026-01-02');
 
 -- --------------------------------------------------------
 
@@ -363,7 +396,15 @@ INSERT INTO `time_slots` (`bus_no`, `time`, `start_from`, `end_at`) VALUES
 (1001, '14:00:00', 'Banani', 'Uttara'),
 (1001, '16:00:00', 'Uttara', 'Banani'),
 (1001, '18:00:00', 'Banani', 'Dhanmondi'),
-(1001, '20:00:00', 'Dhanmondi', 'Gulshan');
+(1001, '20:00:00', 'Dhanmondi', 'Gulshan'),
+(3001, '08:30:00', 'Science Lab', 'Shishu Park'),
+(3001, '10:30:00', 'Shishu Park', 'Cantonment'),
+(3001, '12:00:00', 'Cantonment', 'Mohakhali'),
+(3001, '14:00:00', 'Mohakhali', 'Gulshan'),
+(3001, '16:00:00', 'Gulshan', 'Mohakhali'),
+(3001, '18:00:00', 'Mohakhali', 'Cantonment'),
+(3001, '19:30:00', 'Cantonment', 'Shishu Park'),
+(3001, '21:30:00', 'Shishu Park', 'Science Lab');
 
 -- --------------------------------------------------------
 
@@ -394,11 +435,11 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone_no`, `password`, `nid`, `date
 (100003, 'Md. Samiul Islam', 'admin3@outlook.com', '01333333333', '$2y$10$fevYZKuTZm3vNO81Fzio1OaLxmbmacd3XktsGNneqzcBlGg84kaBi', '1181616039', '2002-08-02', 'Karwan Bazar', 23, '2025-12-19 09:57:15'),
 (200001, 'Md. Sohel Ahmed', 'manager1@gmail.com', '01444444441', '$2y$10$yJtQFTOLTckdbwoo7Wa2TehJ8raqYs5lmKdwh/IHgbOdg4ilmaO1C', '1234567892', '2001-05-19', 'Mirpur', 23, '2025-12-17 22:13:46'),
 (200002, 'Atikullah Tanvir', 'manager2@gmail.com', '01444444442', '$2y$10$rvMMSYgN0N.ZgeahWmTWN.P8datcG/K..izVezOSc6KEa/iwFX9.G', '4315618779', '2003-09-03', 'Mirpur-12', 23, '2025-12-27 11:58:01'),
-(200003, 'dd', 'dead@gmail.com', '01684168666', '$2y$10$Xw.r5Ehf/Ufn4J7SZE5gP.inFd3GPmd.qMcVp4lw2zDKcRXpx/B7m', '', '2016-02-04', 'dd', 9, '2026-01-01 10:30:50'),
+(200003, 'Rasel Chowdhury', 'manager3@yahoo.com', '01444444443', '$2y$10$V3A/qbcxxKAUcYyrNGtgBO1ZR.U5VEvbXrvsMeOs1aS7VK82KMgMi', '1894461588', '2004-08-12', 'Mohammadpur', 21, '2026-01-01 17:10:06'),
 (300001, 'Md. Nafis Hasan', 'nafis@gmail.com', '01651614891', '$2y$10$0/AMXYX2E3dBW38SLhaBDucrpKboOHi82nZPF1YGQ6Vqan7H2y1.G', '1651614844', '2001-02-21', 'Mirpur-10', 24, '2025-12-18 09:31:22'),
 (300002, 'Mahin Mosaddek', 'mahin@gmail.com', '01484599822', '$2y$10$E84.Fon.OJZPVZNpA5Ww..Tq4w1KFc1AU34dbg2rqHuPCbZ40NYB.', '1651894985', '2003-03-06', 'Gulshan', 22, '2025-12-21 10:40:31'),
 (300003, 'Tadrib Ishrak', 'tadrib@gmail.com', '01654646633', '$2y$10$uAytet1XNdpdmFSXAWbiHuuAOQTdbM.VS5huT9Khcox/lUoKGjwnG', '1617626184', '2001-08-25', 'Kalshi Flyover', 24, '2025-12-27 06:22:10'),
-(300004, 'Faruq Ahsan', 'faruq@yahoo.com', '01784131887', '$2y$10$5O8Lukz8NobXqt2T9VIYb.03fV9HSJoCanYGCvfnKuRv.cgIMBDDW', '8784515558', '2002-02-15', 'ECB Chottor', 23, '2025-12-29 16:56:55');
+(300004, 'Farhan Farabi', 'farhan@yahoo.com', '01419868348', '$2y$10$2PMM/MTX1tXoBKYFSuSB2uMu61Q6MJPY7IBXfFJT.jfN1Q31RNNXu', '4986598634', '2002-07-18', 'Farmgate', 23, '2026-01-01 20:39:19');
 
 --
 -- Indexes for dumped tables
