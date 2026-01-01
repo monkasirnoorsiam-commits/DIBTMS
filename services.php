@@ -73,15 +73,15 @@
             $description = $_POST['description'];
             $cost = mysqli_real_escape_string($conn, $_POST['cost']);
             $m_id = $user_id;
-            $sql = "SELECT MAX(bus_no) as max_bus_no FROM bus_service where m_id = '$m_id'";
+            $sql = "SELECT MAX(bus_no) AS max_bus_no FROM bus_service WHERE m_id = '$m_id'";
             $result = mysqli_query($conn, $sql);
             $row = mysqli_fetch_assoc($result);
             $bus_no = null;
-            if(empty($row)){
-                $bus_no = ($user_id%100) * 1000 + 1;
+            if($row['max_bus_no'] == null){
+                $bus_no = ($m_id%100) * 1000 + 1;
             }
             else {
-                $bus_no = 1 + $row["max_bus_no"];
+                $bus_no = 1 + $row['max_bus_no'];
             }
             $counter = 1;
             $sql = "INSERT INTO bus_service (bus_no, m_id, type, total_seats, description, cost) 
@@ -97,6 +97,12 @@
         }
         if(isset($_POST['clear'])){
             $bus_no = mysqli_real_escape_string($conn, $_POST['bus_no']);
+            $sql = "SELECT COUNT(seat_no) AS total_seats FROM bus_seats WHERE bus_no = '$bus_no'";
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($result);
+            $total_seats = $row['total_seats'];
+            $sql = "UPDATE bus_service SET total_seats = '$total_seats' WHERE bus_no = '$bus_no'";
+            mysqli_query($conn, $sql);
             $sql = "UPDATE bus_seats SET vacant = '1' WHERE bus_no = '$bus_no'";
             if(mysqli_query($conn, $sql)) {
                 echo "<script>alert('Seats cleared successfully!'); window.location.href='services.php';</script>";
@@ -108,6 +114,8 @@
         if(isset($_POST['delete'])) {
             $bus_no = mysqli_real_escape_string($conn, $_POST['bus_no']);
             $sql = "DELETE FROM bus_seats WHERE bus_no = '$bus_no'";
+            mysqli_query($conn, $sql);
+            $sql = "DELETE FROM time_slots WHERE bus_no = '$bus_no'";
             mysqli_query($conn, $sql);
             $sql = "DELETE FROM bus_service WHERE m_id = '$user_id' AND bus_no = '$bus_no'";
             if(mysqli_query($conn, $sql)) {

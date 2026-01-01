@@ -43,16 +43,18 @@
                 $row = mysqli_fetch_assoc($result);
                 $discount = $row['discount'];
                 $no_of_rides = $row['no_of_rides'];
-                $sql = "SELECT t.bus_no, b.cost FROM time_slots t LEFT JOIN bus_service b ON b.bus_no = t.bus_no WHERE t.start_from = '$start_from' AND t.end_at = '$end_at' AND t.time = '$time'";
+                $sql = "SELECT t.bus_no, b.cost, b.total_seats FROM time_slots t LEFT JOIN bus_service b ON b.bus_no = t.bus_no WHERE t.start_from = '$start_from' AND t.end_at = '$end_at' AND t.time = '$time'";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
                 $bus_no = $row['bus_no'];
                 $cost = $row['cost'];
+                $total_seats = $row['total_seats'];
                 $_SESSION['time'] = $time;
                 $_SESSION['discount'] = $discount;
                 $_SESSION['bus_no'] = $bus_no;
                 $_SESSION['cost'] = $cost;
                 $_SESSION['no_of_rides'] = $no_of_rides;
+                $_SESSION['total_seats'] = $total_seats;
                 header("Location: booking3.php");
             }
             include("footer.html");

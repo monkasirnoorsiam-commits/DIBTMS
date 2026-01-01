@@ -53,9 +53,7 @@
         <?php } elseif($_SESSION["type"] == "passenger"){
             ?> <h2 class="section-title">List Of All Registered Passengers</h2> 
         <?php } } elseif(substr($_SESSION["id"], 0, 1) == 2){}
-            /*if($_SESSION["type"] == "staff"){ 
-            ?> <h2 class="section-title">List Of All Staffs</h2> 
-        <?php } } elseif(substr($_SESSION["id"], 0, 1) == 3){}*/ ?> 
+            ?> 
         <table class="payment-table">
             <thead>
                 <tr>
@@ -131,11 +129,7 @@
             $address = filter_input(INPUT_POST, "address", FILTER_SANITIZE_SPECIAL_CHARS);
             $date_of_birth = $_POST["dob"];
             $salary = floatval($_POST['salary']);
-            if(empty($name) OR empty($email) OR empty($phone_no) OR empty($password) OR empty($nid) OR empty($address) OR empty($date_of_birth) OR empty($salary)){
-                echo"A field is empty. Please try again";
-            }
-            else {
-                $hash = password_hash($password, PASSWORD_DEFAULT);
+            $hash = password_hash($password, PASSWORD_DEFAULT);
                 $sql = "SELECT id FROM users U1 where reg_date = (SELECT MAX(U2.reg_date) FROM users U2 where U2.id like '2%')";
                 $result = mysqli_query($conn, $sql);
                 $id = null;
@@ -162,11 +156,10 @@
                 else {
                     echo "<script>alert('Error adding bus manager!');</script>";
                 }
-            }
         }
         if(isset($_POST['delete'])) {
-            $user_id = $_POST["id"];
-            $sql = "DELETE FROM users U LEFT JOIN bus_managers M ON U.id = M.m_id WHERE U.id = '$user_id'";
+            $query_id = $_POST["id"];
+            $sql = "DELETE FROM users U LEFT JOIN bus_managers M ON U.id = M.m_id WHERE M.m_id = '$query_id'";
             if(mysqli_query($conn, $sql)) {
                 echo "<script>alert('Bus manager removed successfully!'); window.location.href='show.php';</script>";
             } 
@@ -196,9 +189,9 @@
             </div>
         <?php 
         if(isset($_POST['update1'])) {
-            $user_id = $_POST["id"];
+            $query_id = $_POST["id"];
             $discount = $_POST["discount"];
-            $sql = "UPDATE passengers SET discount = '$discount' WHERE p_id = '$user_id'";
+            $sql = "UPDATE passengers SET discount = '$discount' WHERE p_id = '$query_id'";
             if(mysqli_query($conn, $sql)) {
                 echo "<script>alert('Updated discount successfully!'); window.location.href='show.php';</script>";
             } 
@@ -217,8 +210,8 @@
             }
         }
         if(isset($_POST['delete'])) {
-            $user_id = $_POST["id"];
-            $sql = "DELETE U, P, PA, R FROM users U LEFT JOIN passengers P ON U.id = P.p_id LEFT JOIN payment_options PA ON U.id = PA.p_id LEFT JOIN ride_history R ON U.id = R.p_id WHERE U.id = '$user_id'";
+            $query_id = $_POST["id"];
+            $sql = "DELETE U, P, PA, R FROM users U LEFT JOIN passengers P ON U.id = P.p_id LEFT JOIN payment_options PA ON U.id = PA.p_id LEFT JOIN ride_history R ON U.id = R.p_id WHERE U.id = '$query_id'";
             if(mysqli_query($conn, $sql)) {
                 echo "<script>alert('Passenger removed successfully!'); window.location.href='show.php';</script>";
             } 

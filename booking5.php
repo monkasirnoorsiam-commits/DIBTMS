@@ -26,6 +26,7 @@
         $ride_cost = $_SESSION['ride_cost'];
         $ride_date = $_SESSION['ride_date'];
         $seat_info = $_SESSION['seat_info'];
+        $total_seats = $_SESSION['total_seats'];
         $seat1 = null; $seat2 = null; $seat3 = null; $seat4 = null; $seat5 = null;
         //echo"a $start_from " . "b $end_at " . "c $user_id " . "d $bus_no " . "e $time " . "f $seats " . "g $discount " . "h $cost " . "i $ride_cost " . "j $ride_date " . "k $seat_info ";
     ?>
@@ -75,6 +76,9 @@
                                         }
                                     }
                                 }
+                                $total_seats = $total_seats - $seats;
+                                $sql = "UPDATE bus_service SET total_seats = '$total_seats'";
+                                mysqli_query($conn, $sql);
                                 $amount = $amount - $ride_cost;
                                 $sql = "UPDATE bank SET amount = '$amount' WHERE acc_number = '$acc_number' AND banking_service_name = '$banking_service_name'";
                                 mysqli_query($conn, $sql);
@@ -92,7 +96,7 @@
                                     echo "<script>alert('Error booking ride!'); window.location.href='booking5.php';</script>";
                                 }
                                 $_SESSION['start_from'] = null; $_SESSION['end_at'] = null; $_SESSION['bus_no'] = null; $_SESSION['time'] = null;
-                                $_SESSION['seats'] = null; $_SESSION['discount'] = null; $_SESSION['cost'] = null; $_SESSION['ride_cost'] = null;
+                                $_SESSION['seats'] = null; $_SESSION['discount'] = null; $_SESSION['cost'] = null; $_SESSION['ride_cost'] = null; $_SESSION['total_seats'] = null;
                                 $_SESSION['ride_date'] = null; $_SESSION['ride_date'] = null; $_SESSION['seat_info'] = null; $_SESSION['no_of_rides'] = null;
                                 $_SESSION['seat1'] = null; $_SESSION['seat2'] = null; $_SESSION['seat3'] = null; $_SESSION['seat4'] = null; $_SESSION['seat5'] = null;
                             }
