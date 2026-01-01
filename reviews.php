@@ -15,11 +15,23 @@
 </head>
 
 
-<body style="min-height:100vh; display:flex; flex-direction:column;">
+<body class="no-footer"> 
 
-<h2>Review Bus Service</h2>
 
-<form method="post">
+<h2 style="display:inline-block;">
+    <span style="background:rgb(192,202,51);
+                 color:rgb(255,255,255);
+                 padding:5px 10px;
+                 display:inline-block;
+                 transform: skew(-20deg);">
+        Share your experience and help us improve!
+    </span>
+</h2>
+
+
+
+<form method="post" class="review-form">
+
     Bus Number:<br>
     <input type="number" name="bus_no" required><br><br>
 
