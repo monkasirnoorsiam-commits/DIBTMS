@@ -37,7 +37,7 @@
                 }
             ?>
         </select>
-        <input type="submit" name="submit" value="register"><br>
+        <input type="submit" name="submit" value="Register"><br>
     </form>
 
 <?php
