@@ -87,6 +87,8 @@ nav a:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+
+
 footer {
     background-color: rgba(245, 250, 230, 0.98);
     padding: 6px 28px;
@@ -94,7 +96,9 @@ footer {
     border-top: 1.5px solid rgba(192, 202, 51, 1);
     box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.08);
     font-family: "Audiowide", sans-serif;
+    margin-top: auto;
 }
+
 
 .footer-content h3 {
     margin: 0 0 20px 0;
@@ -128,63 +132,135 @@ footer {
 }
 
 .login-form {
-    background: rgba(255, 255, 255, 1);
-    padding: 40px 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    margin: 20px;
-    overflow: hidden;
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.2);
+    max-width: 280px;
+    margin-top: 20px;
 }
 
 .login-title {
-    text-align: left;
-    margin-bottom: 25px;
-    color: rgba(51, 51, 51, 1);
-    font-size: 1.8em;
+    margin-bottom: 18px;
+    font-size: 1.5em;
     font-weight: bold;
+    color: #333;
 }
 
 .login-label {
-    display: block;
-    margin-bottom: 5px;
-    color: rgba(85, 85, 85, 1);
+    margin-bottom: 4px;
+    color: #555;
     font-weight: 500;
 }
 
 .login-input {
     width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    border: 1px solid rgba(204, 204, 204, 1);
-    border-radius: 8px;
-    font-size: 1em;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
     box-sizing: border-box;
 }
-
 .login-input:focus {
-    border-color: rgba(79, 172, 254, 1);
-    box-shadow: 0 0 5px rgba(79, 172, 254, 0.5);
+    border-color: #4facfe;
     outline: none;
 }
 
 .login-button {
     width: 100%;
-    padding: 12px;
-    background: rgba(9, 99, 219, 0.95);
-    color: rgba(255, 255, 255, 1);
+    padding: 10px;
+    background: rgba(9, 99, 219, .95);
+    color: #fff;
     border: none;
-    border-radius: 8px;
-    font-size: 1em;
+    border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .login-button:hover {
-    background: rgba(79, 172, 254, 1);
-    color: rgba(255, 255, 255, 1);
+    background: #4facfe;
+}
+
+
+.registration-form {
+    width: 500px;
+    padding: 20px;
+    margin: 30px auto;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.registration-form h2,
+.registration-form input[type="submit"] {
+    grid-column: span 2;
+    text-align: center;
+}
+
+.registration-form input,
+.registration-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.registration-form input[type="submit"] {
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.registration-form input[type="submit"]:hover {
+    background: #0056b3;
+}
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    width: 90%;
+    margin: auto;           /* centers horizontally and vertically if parent has height */
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    gap: 15px;
+}
+
+.booking-form h2 {
+    text-align: left;
+    color: #1b5e20;
+}
+
+.booking-select, .booking-btn {
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.booking-select {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.booking-btn {
+    background: #0963db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 150px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.booking-btn:hover {
+    background: #4facfe;
 }
 
 .account-info {
@@ -194,62 +270,6 @@ footer {
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.registration-form {
-    width: 350px;
-    padding: 30px;
-    margin: 50px auto;
-    background-color: rgba(249, 249, 249, 1);
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
-}
-
-.registration-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: rgba(51, 51, 51, 1);
-}
-
-.registration-form input[type="text"],
-.registration-form input[type="password"],
-.registration-form input[type="date"],
-.registration-form select {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0 15px 0;
-    border: 1px solid rgba(204, 204, 204, 1);
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-
-.registration-form input[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    background-color: rgba(0, 123, 255, 1);
-    border: none;
-    border-radius: 5px;
-    color: rgba(255, 255, 255, 1);
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.registration-form input[type="submit"]:hover {
-    background-color: rgba(0, 86, 179, 1);
-}
-
-.registration-form select {
-    cursor: pointer;
-}
-
-.registration-form input:focus,
-.registration-form select:focus {
-    outline: none;
-    border-color: rgba(0, 123, 255, 1);
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .account-info h2 {
@@ -395,4 +415,3 @@ footer {
 .action-btn:hover::after {
     width: 100%;
 }
-
