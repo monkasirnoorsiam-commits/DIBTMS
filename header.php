@@ -5,11 +5,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"> 
+
 </head>
 <header>
     <img src="DIBTMS_logo.png" alt="Dhaka Intercity Bus Transit Management System logo">
-    <h2>Dhaka Intercity Bus Transit Management System</h2>
+    <h2>DIBTMS</h2>
     <nav>
     <?php
         if(empty($_SESSION["id"])){
