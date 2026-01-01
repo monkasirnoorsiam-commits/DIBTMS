@@ -27,9 +27,11 @@
                            "Multiplan", "Puran Dhaka", "Science Lab", "Shahbag", "Shishu Park", "Uttara");
     ?>
     <h2>Choose a destination</h2>
-    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
+   <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post" class="booking-form">
+
             From:
-            <select name="start_from" required onchange="this.form.submit()">
+            <select name="start_from" class="booking-select" required onchange="this.form.submit()">
+
                             <?php
                                 $start_from = isset($_POST['start_from']) ? $_POST['start_from'] : $curr_address;
                                 echo "<option value='" . $curr_address . "'" . ($start_from == $curr_address ? " selected" : "") . ">" . $curr_address . "</option>";
@@ -39,7 +41,8 @@
                             ?>
                         </select>
             To:
-            <select name="end_at" required>
+            <select name="end_at" class="booking-select" required>
+
                             <?php
                                 $end_at = isset($_POST['end_at']) ? $_POST['end_at'] : '';
                                 foreach($addresses as $address){
@@ -47,7 +50,8 @@
                                 }
                             ?>
                         </select>
-            <button type="submit" name="select" class="edit-btn">Select</button>
+           <button type="submit" name="select" class="booking-btn">Select</button>
+
     </form>
     <?php
         if(isset($_POST['select'])) {
