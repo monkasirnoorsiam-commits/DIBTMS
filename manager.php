@@ -13,12 +13,16 @@
     <title>DIBTMS Manager</title>
 </head>
 <body>
-    <h2>Actions:</h2>
-    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
-        <input type="submit" name="show2" value="Show Bus Services"><br>
-        <input type="submit" name="show3" value="Show Bus Timings"><br>
-         <input type="submit" name="show4" value="Passenger Feedback Summary"><br>
-    </form>
+    <h2>Take control of your fleet and monitor passenger insights</h2>
+
+<form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post" class="action-form">
+    <div class="buttons-container">
+        <input type="submit" name="show2" value="Show Bus Services" class="action-btn"><br>
+        <input type="submit" name="show3" value="Show Bus Timings" class="action-btn"><br>
+        <input type="submit" name="show4" value="Passenger Feedback Summary" class="action-btn"><br>
+    </div>
+</form>
+
 </body>
 </html>
 <?php 
