@@ -87,7 +87,7 @@
             <form method="post"> <?php
             if($seats >= 1){ ?>
                 <div class="time-container">
-                <span class="text-design" style="display: inline-block;">Seat1:</span>
+                <span class="text-design" style="display: inline-block;">Seat 1 :</span>
                     <select name="seat1" class="booking-select" required>
                         <?php
                             mysqli_data_seek($result, 0);
@@ -99,7 +99,7 @@
                 </div>
             <?php } if($seats >= 2){ ?>
                 <div class="time-container">
-                <span class="text-design" style="display: inline-block;">Seat2:</span>
+                <span class="text-design" style="display: inline-block;">Seat 2 :</span>
                     <select name="seat2" class="booking-select" required>
                         <?php
                             mysqli_data_seek($result, 0);
@@ -111,7 +111,7 @@
                 </div>
             <?php } if($seats >= 3){ ?>
                 <div class="time-container">
-                    Seat 3:
+                <span class="text-design" style="display: inline-block;">Seat 3 :</span>
                     <select name="seat3" class="booking-select" required>
                         <?php
                             mysqli_data_seek($result, 0);
@@ -122,8 +122,9 @@
                     </select>
                 </div>
             <?php } if($seats >= 4){ ?>
-                Seat 4:
-                <select name="seat4" required>
+                <div class="time-container">
+                <span class="text-design" style="display: inline-block;">Seat 4 :</span>
+                <select name="seat4" class="booking-select" required>
                     <?php
                         mysqli_data_seek($result, 0);
                         while($row = mysqli_fetch_assoc($result)) {
@@ -131,9 +132,11 @@
                         }
                     ?>
                 </select>
+                </div>
             <?php } if($seats == 5){ ?>
-                Seat 5:
-                <select name="seat5" required>
+                <div class="time-container">
+                <span class="text-design" style="display: inline-block;">Seat 5 :</span>
+                <select name="seat5" class="booking-select" required>
                     <?php
                         mysqli_data_seek($result, 0);
                         while($row = mysqli_fetch_assoc($result)) {
@@ -141,6 +144,7 @@
                         }
                     ?>
                 </select>
+                </div>
             <?php } ?>
             <div style="text-align: center; margin-top: 15px;">
                 <button type="submit" name="select4" class="edit-btn">Select</button>
