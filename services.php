@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
-    <title>Your Bus Services</title>
+    <title >Your Bus Services</title>
 </head>
 <body>
 <?php 
@@ -21,7 +21,7 @@
 ?>
 <body>
     <div class='payment-options'>
-        <h2>Your Bus Services</h2>
+        <h2 class="text-design">Your Bus Services</h2>
         <table class="payment-table">
             <thead>
                 <tr>
@@ -47,7 +47,7 @@
             </tbody>
         </table>
     <div class="button-container">
-        <h2>Add a bus service</h2>
+        <h2 class="text-design">Add a bus service</h2>
         <form method="post" class="add-form">
             <input type="text" name="type" placeholder="Type" required>
             <input type="number" name="total_seats" placeholder="Total Seats" required>
@@ -55,18 +55,18 @@
             <input type="number" name="cost" placeholder="Ride Cost" required>
             <button type="submit" name="add" class="edit-btn">Add</button>
         </form>
-        <h2>Change ride fares of a bus service</h2>
+        <h2 class="text-design">Change ride fares of a bus service</h2>
         <form method="post" class="add-form">
             <input type="number" name="bus_no" placeholder="Bus Number" required>
             <input type="number" name="cost" placeholder="Ride Cost" required>
             <button type="submit" name="change" class="edit-btn">Change</button>
         </form>
-        <h2>Clear seats of a bus service</h2>
+        <h2 class="text-design">Clear seats of a bus service</h2>
         <form method="post" class="add-form">
             <input type="number" name="bus_no" placeholder="Bus Number" required>
             <button type="submit" name="clear" class="edit-btn">Clear</button>
         </form>
-        <h2>Delete a bus service</h2>
+        <h2 class="text-design">Delete a bus service</h2>
         <form method="post" class="delete-form">
             <input type="number" name="bus_no" placeholder="Bus Number" required>
             <button type="submit" name="delete" class="edit-btn">Delete</button>
@@ -142,7 +142,7 @@
                 echo "<script>alert('Error deleting bus service!');</script>";
             }
         }
-        include("footer.html");
+       // include("footer.html");
         mysqli_close($conn);
     ?>
 </body>
