@@ -19,7 +19,6 @@
             <input type="submit" name="show" value="Show all managers" class="action-btn"><br>
             <input type="submit" name="show2" value="Show all passengers" class="action-btn"><br>
             <input type="submit" name="show3" value="Show all admins" class="action-btn"><br>
-            <input type="submit" name="verify" value="Verify rides" class="action-btn"><br>
         </div>
     </form>
 </body>

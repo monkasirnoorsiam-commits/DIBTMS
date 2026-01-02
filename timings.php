@@ -1,9 +1,7 @@
 <?php
     include("header.php");
     include("database.php");
-    if(empty($_SESSION["id"])) {
-        header("Location: login.php");
-    }
+    if(empty($_SESSION["id"])) { header("Location: login.php"); }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +11,11 @@
     <link rel="stylesheet" href="styles/main.css">
     <title>DIBTMS Time Slots</title>
 </head>
-<?php 
+<?php
     $user_id = $_SESSION["id"];
-    $addresses = array("Aftabnagar", "Agargaon", "Airport", "Badda", "Banani", "Bangla Motor", "Bijoy Shoroni", "Cantonment", 
-                            "Dhanmondi", "ECB Chottor", "Farmgate", "Gulistan", "Gulshan", "Kamalapur", "Kalshi Flyover", 
-                            "Lalbag", "Mohakhali", "Mohammadpur", "Mogbazar", "Motijheel", "Mirpur-1", "Mirpur-10", "Mirpur-12", 
+    $addresses = array("Aftabnagar", "Agargaon", "Airport", "Badda", "Banani", "Bangla Motor", "Bijoy Shoroni", "Cantonment",
+                            "Dhanmondi", "ECB Chottor", "Farmgate", "Gulistan", "Gulshan", "Kamalapur", "Kalshi Flyover",
+                            "Lalbag", "Mohakhali", "Mohammadpur", "Mogbazar", "Motijheel", "Mirpur-1", "Mirpur-10", "Mirpur-12",
                             "Multiplan", "Puran Dhaka", "Science Lab", "Shahbag", "Shishu Park", "Uttara");
     $sql = "SELECT t.* FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id' ORDER BY t.time ASC";
     $result = mysqli_query($conn, $sql);
@@ -90,7 +88,7 @@
                         echo "<option value='" . $row['bus_no'] . "'>" . $row['bus_no'] . "</option>";
                     }
                     $sql = "SELECT DISTINCT t.time FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id'";
-                    $result = mysqli_query($conn, $sql); 
+                    $result = mysqli_query($conn, $sql);
                 ?>
             </select>
             <select name="time" required>
@@ -110,25 +108,16 @@
             $time = mysqli_real_escape_string($conn, $_POST['time']);
             $start_from = mysqli_real_escape_string($conn, $_POST['start_from']);
             $end_at = mysqli_real_escape_string($conn, $_POST['end_at']);
-            $sql = "INSERT INTO time_slots (bus_no, time, start_from, end_at) 
-                    VALUES ('$bus_no', '$time', '$start_from', '$end_at')";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Time slot added successfully!'); window.location.href='timings.php';</script>";
-            } 
-            else {
-                echo "<script>alert('Error adding time slot!');</script>";
-            }
+            $sql = "INSERT INTO time_slots (bus_no, time, start_from, end_at) VALUES ('$bus_no', '$time', '$start_from', '$end_at')";
+            if(mysqli_query($conn, $sql)) { echo "<script>alert('Time slot added successfully!'); window.location.href='timings.php';</script>"; }
+            else { echo "<script>alert('Error adding time slot!');</script>"; }
         }
         if(isset($_POST['delete'])) {
             $bus_no = mysqli_real_escape_string($conn, $_POST['bus_no']);
             $time = mysqli_real_escape_string($conn, $_POST['time']);
             $sql = "DELETE FROM time_slots WHERE bus_no = '$bus_no' AND time = '$time'";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Time slot deleted successfully!'); window.location.href='timings.php';</script>";
-            } 
-            else {
-                echo "<script>alert('Error deleting time slot!');</script>";
-            }
+            if(mysqli_query($conn, $sql)) { echo "<script>alert('Time slot deleted successfully!'); window.location.href='timings.php';</script>"; }
+            else { echo "<script>alert('Error deleting time slot!');</script>"; }
         }
         include("footer.html");
         mysqli_close($conn);

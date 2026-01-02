@@ -1,9 +1,7 @@
 <?php
     include("header.php");
     include("database.php");
-    if(empty($_SESSION["id"])) {
-        header("Location: login.php");
-    }
+    if(empty($_SESSION["id"])) { header("Location: login.php"); }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,29 +12,22 @@
     <title>User List</title>
 </head>
 <body>
-<?php 
+<?php
     $user_id = $_SESSION["id"];
     $sql = null;
     if(substr($_SESSION["id"], 0, 1) == 1){
-        if($_SESSION["type"] == "admin"){
-            $sql = "SELECT * FROM users WHERE id LIKE '1%'";
-        }
+        if($_SESSION["type"] == "admin"){ $sql = "SELECT * FROM users WHERE id LIKE '1%'"; }
         elseif($_SESSION["type"] == "manager"){
-            $sql = "SELECT u.*, m.salary 
-            FROM users u
-            LEFT JOIN bus_managers m ON u.id = m.m_id WHERE u.id LIKE '2%'";
+            $sql = "SELECT u.*, m.salary FROM users u LEFT JOIN bus_managers m ON u.id = m.m_id WHERE u.id LIKE '2%'";
         }
         elseif($_SESSION["type"] == "passenger"){
-            $sql = "SELECT u.*, p.discount 
-            FROM users u
-            LEFT JOIN passengers p ON u.id = p.p_id WHERE u.id LIKE '3%'";
+            $sql = "SELECT u.*, p.discount FROM users u LEFT JOIN passengers p ON u.id = p.p_id WHERE u.id LIKE '3%'";
         }
     }
     elseif(substr($_SESSION["id"], 0, 1) == 2){
         if($_SESSION["type"] == "staff"){
-            $sql = "SELECT u.*, s.shift, s.type, s.manager_id as managed_by, s.assigned_duties, s.remarks, s.salary 
-            FROM users u
-            LEFT JOIN staffs s ON u.id = s.s_id";
+            $sql = "SELECT u.*, s.shift, s.type, s.manager_id as managed_by, s.assigned_duties, s.remarks, s.salary
+            FROM users u LEFT JOIN staffs s ON u.id = s.s_id";
         }
     }
     else {}
@@ -46,14 +37,14 @@
     <div class='payment-options'>
         <?php if(substr($_SESSION["id"], 0, 1) == 1){
             if($_SESSION["type"] == "admin"){
-            ?> <h2 class="section-title text-design">List Of All Admins</h2> 
+            ?> <h2 class="section-title text-design">List Of All Admins</h2>
         <?php } elseif($_SESSION["type"] == "manager"){
             ?> <h2 class="section-title text-design">List Of All Bus Managers</h2>
 
         <?php } elseif($_SESSION["type"] == "passenger"){
-            ?> <h2 class="section-title text-design">List Of All Registered Passengers</h2> 
+            ?> <h2 class="section-title text-design">List Of All Registered Passengers</h2>
         <?php } } elseif(substr($_SESSION["id"], 0, 1) == 2){}
-            ?> 
+            ?>
         <table class="payment-table">
             <thead>
                 <tr>
@@ -86,12 +77,8 @@
                     echo "<td>" . htmlspecialchars($row['address']) . "</td>";
                     echo "<td>" . htmlspecialchars($row['reg_date']) . "</td>";
                     if(substr($_SESSION["id"], 0, 1) == 1){
-                        if($_SESSION["type"] == "manager"){
-                            echo "<td>" . htmlspecialchars($row['salary']) . "</td>";
-                        }
-                        elseif($_SESSION["type"] == "passenger"){
-                            echo "<td>" . htmlspecialchars($row['discount']) . "</td>";
-                        }
+                        if($_SESSION["type"] == "manager"){ echo "<td>" . htmlspecialchars($row['salary']) . "</td>"; }
+                        elseif($_SESSION["type"] == "passenger"){ echo "<td>" . htmlspecialchars($row['discount']) . "</td>"; }
                     }
                     echo "</tr>";
                 }
@@ -118,7 +105,6 @@
         <button type="submit" name="add" class="edit-btn">Add</button>
     </form>
 </div>
-
         <h2 class="section-title text-design">Update Salary of a Bus Manager</h2>
         <form method="post" class="delete-form">
             <input type="number" name="id" placeholder="Manager ID" required>
@@ -142,43 +128,31 @@
             $date_of_birth = $_POST["dob"];
             $salary = floatval($_POST['salary']);
             $hash = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "SELECT id FROM users U1 where reg_date = (SELECT MAX(U2.reg_date) FROM users U2 where U2.id like '2%')";
-                $result = mysqli_query($conn, $sql);
-                $id = null;
-                $row = mysqli_fetch_assoc($result);
-                if(empty($row)){
-                    $id = 200001;
-                }
-                else{
-                    $id = $row["id"] + 1;
-                }
-                $no_of_rides = 0;
-                $today = new DateTime();
-                $dob = new DateTime($date_of_birth);
-                $dobFormatted = $dob->format('Y-m-d');
-                $age = (int)($dob->diff($today)->y);
-                $reg_date = $today->format('Y-m-d H:i:s');
-                $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, age, reg_date)
-                        VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$age', '$reg_date')";
-                mysqli_query($conn, $sql);
-                $sql = "INSERT INTO bus_managers (m_id, salary) VALUES ('$id', '$salary')";
-                if(mysqli_query($conn, $sql)) {
-                    echo "<script>alert('Bus manager added successfully!'); window.location.href='show.php';</script>";
-                } 
-                else {
-                    echo "<script>alert('Error adding bus manager!');</script>";
-                }
+            $sql = "SELECT id FROM users U1 where reg_date = (SELECT MAX(U2.reg_date) FROM users U2 where U2.id like '2%')";
+            $result = mysqli_query($conn, $sql);
+            $id = null;
+            $row = mysqli_fetch_assoc($result);
+            if(empty($row)){ $id = 200001; }
+            else{ $id = $row["id"] + 1; }
+            $no_of_rides = 0;
+            $today = new DateTime();
+            $dob = new DateTime($date_of_birth);
+            $dobFormatted = $dob->format('Y-m-d');
+            $age = (int)($dob->diff($today)->y);
+            $reg_date = $today->format('Y-m-d H:i:s');
+            $sql = "INSERT INTO users (id, name, email, phone_no, password, nid, date_of_birth, address, age, reg_date)
+                    VALUES ('$id', '$name', '$email', '$phone_no', '$hash', '$nid', '$dobFormatted', '$address', '$age', '$reg_date')";
+            mysqli_query($conn, $sql);
+            $sql = "INSERT INTO bus_managers (m_id, salary) VALUES ('$id', '$salary')";
+            if(mysqli_query($conn, $sql)) { echo "<script>alert('Bus manager added successfully!'); window.location.href='show.php';</script>"; }
+            else { echo "<script>alert('Error adding bus manager!');</script>"; }
         }
         else if(isset($_POST['update'])){
             $query_id = $_POST['id'];
             $salary = floatval($_POST['salary']);
             $sql = "UPDATE bus_managers SET salary = '$salary' WHERE m_id = '$query_id'";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Salary of a bus manager updated successfully!'); window.location.href='show.php';</script>";
-            } 
-            else {
-                echo "<script>alert('Error updating salary of a bus manager!');</script>";
-            }
+            if(mysqli_query($conn, $sql)) { echo "<script>alert('Salary of a bus manager updated successfully!'); window.location.href='show.php';</script>"; }
+            else { echo "<script>alert('Error updating salary of a bus manager!');</script>"; }
         }
         else if(isset($_POST['delete'])) {
             $query_id = $_POST['id'];
@@ -195,12 +169,8 @@
             $sql = "DELETE FROM bus_managers WHERE m_id = '$query_id'";
             mysqli_query($conn, $sql);
             $sql = "DELETE FROM users WHERE id = '$query_id'";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Bus manager removed successfully!'); window.location.href='show.php';</script>";
-            } 
-            else {
-                echo "<script>alert('Error removing Bus manager!');</script>";
-            }
+            if(mysqli_query($conn, $sql)) { echo "<script>alert('Bus manager removed successfully!'); window.location.href='show.php';</script>"; }
+            else { echo "<script>alert('Error removing Bus manager!');</script>"; }
         }
         }
         else if ($_SESSION["type"] == "passenger"){ ?>
@@ -222,37 +192,26 @@
                 <button type="submit" name="delete" class="edit-btn">Delete</button>
                 </form>
             </div>
-        <?php 
+        <?php
         if(isset($_POST['update1'])) {
             $query_id = $_POST["id"];
             $discount = $_POST["discount"];
             $sql = "UPDATE passengers SET discount = '$discount' WHERE p_id = '$query_id'";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Updated discount successfully!'); window.location.href='show.php';</script>";
-            } 
-            else {
-                echo "<script>alert('Error updating discount!');</script>";
-            }
+            if(mysqli_query($conn, $sql)) { echo "<script>alert('Updated discount successfully!'); window.location.href='show.php';</script>"; }
+            else { echo "<script>alert('Error updating discount!');</script>"; }
         }
         if(isset($_POST['update2'])) {
             $discount = $_POST["discount"];
             $sql = "UPDATE passengers SET discount = '$discount'";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Updated discount successfully!'); window.location.href='show.php';</script>";
-            } 
-            else {
-                echo "<script>alert('Error updating discount!');</script>";
-            }
+            if(mysqli_query($conn, $sql)) { echo "<script>alert('Updated discount successfully!'); window.location.href='show.php';</script>"; }
+            else { echo "<script>alert('Error updating discount!');</script>"; }
         }
         if(isset($_POST['delete'])) {
             $query_id = $_POST["id"];
-            $sql = "DELETE U, P, PA, R FROM users U LEFT JOIN passengers P ON U.id = P.p_id LEFT JOIN payment_options PA ON U.id = PA.p_id LEFT JOIN ride_history R ON U.id = R.p_id WHERE U.id = '$query_id'";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script>alert('Passenger removed successfully!'); window.location.href='show.php';</script>";
-            } 
-            else {
-                echo "<script>alert('Error removing passenger!');</script>";
-            }
+            $sql = "DELETE U, P, PA, R FROM users U LEFT JOIN passengers P ON U.id = P.p_id
+                    LEFT JOIN payment_options PA ON U.id = PA.p_id LEFT JOIN ride_history R ON U.id = R.p_id WHERE U.id = '$query_id'";
+            if(mysqli_query($conn, $sql)) { echo "<script>alert('Passenger removed successfully!'); window.location.href='show.php';</script>"; }
+            else { echo "<script>alert('Error removing passenger!');</script>"; }
         }
         } }
         include("footer.html");

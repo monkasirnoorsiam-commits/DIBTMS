@@ -38,7 +38,6 @@
         </select>
         <input type="submit" name="submit" value="Register"><br>
     </form>
-
 <?php
     if(isset($_POST['submit'])){
         $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -54,24 +53,16 @@
             elseif(substr($phone_no, 0, 9) == "013333333" OR substr($phone_no, 0, 9) == "014444444"){
                 echo"<script>alert(You cannot use this phone number); window.location.href='registration.php';</script>";
             }
-            elseif(strlen($phone_no) != 11){
-                echo"<script>alert(Please use a valid phone number); window.location.href='registration.php';</script>";
-            }
-            elseif(strlen($nid) != 10){
-                echo"<script>alert(Please use a valid NID); window.location.href='registration.php';</script>";
-            }
+            elseif(strlen($phone_no) != 11){ echo"<script>alert(Please use a valid phone number); window.location.href='registration.php';</script>"; }
+            elseif(strlen($nid) != 10){ echo"<script>alert(Please use a valid NID); window.location.href='registration.php';</script>"; }
             else{
                 $hash = password_hash($password, PASSWORD_DEFAULT);
                 $sql = "SELECT id FROM users U1 where reg_date = (SELECT MAX(U2.reg_date) FROM users U2 where U2.id like '3%')";
                 $result = mysqli_query($conn, $sql);
                 $id = null;
                 $row = mysqli_fetch_assoc($result);
-                if(empty($row)){
-                    $id = 300001;
-                }
-                else{
-                    $id = $row["id"] + 1;
-                }
+                if(empty($row)){ $id = 300001; }
+                else{ $id = $row["id"] + 1; }
                 $no_of_rides = 0;
                 $today = new DateTime();
                 $dob = new DateTime($date_of_birth);
@@ -93,13 +84,9 @@
                     if (mysqli_query($conn, $sql)){
                         echo"<script>alert(You are now registered! Now log in to your account); window.location.href='login.php';</script>";
                     }
-                    else {
-                        echo"<script>alert(Unexpected error occured); window.location.href='registration.php';</script>";
-                    }
+                    else { echo"<script>alert(Unexpected error occured); window.location.href='registration.php';</script>"; }
                 }
-                else {
-                    echo"<script>alert(That email or phone number or NID is taken); window.location.href='registration.php';</script>";
-                }
+                else { echo"<script>alert(That email or phone number or NID is taken); window.location.href='registration.php';</script>"; }
             }
     }
     include("footer.html");
