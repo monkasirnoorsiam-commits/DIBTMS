@@ -21,10 +21,11 @@
         $sql = "SELECT t.time, b.description FROM time_slots t LEFT JOIN bus_service b ON b.bus_no = t.bus_no WHERE t.start_from = '$start_from' AND t.end_at = '$end_at'";
         $result = mysqli_query($conn, $sql);
     ?> 
-    <h2>Select available time:</h2><br>
+    <h2 class="text-design" >Select available time:</h2><br>
         <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
-            Time:
-            <select name="time" required onchange="this.form.submit()">
+            <div class="time-container">
+            <span class="text-design" style="display: inline-block;">Time:</span>
+            <select name="time" class="booking-select" required onchange="this.form.submit()">
                 <?php
                     $time = isset($_POST['time']) ? $_POST['time'] : '';
                     mysqli_data_seek($result, 0);
@@ -33,7 +34,11 @@
                     }
                 ?>
             </select>
+            
+             <div style="width: 100%; display: flex; justify-content: center; margin-top: 10px;">
             <button type="submit" name="select2" class="edit-btn">Select</button>
+            </div>
+            </div>
         </form>
             <?php 
             if(isset($_POST['select2'])){
