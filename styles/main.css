@@ -327,15 +327,18 @@ footer {
     border-color: #2a7cff;
     box-shadow: 0 0 4px rgba(42,124,255,0.4);
 }
-.add-form {
+.add-form, .delete-form {
     display: flex;
     gap: 10px;
     align-items: center;
-    margin-top: 15px;
+    justify-content: center; /* centers horizontally */
+    margin-top: 0;           /* remove unnecessary top margin */
+    margin-bottom: 15px;     /* add desired bottom space */
 }
 
-.add-form select,
-.add-form input {
+/* Include both inputs and selects for both forms */
+.add-form input, .delete-form input,
+.add-form select, .delete-form select {
     padding: 10px 12px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -344,15 +347,16 @@ footer {
     width: 140px;
 }
 
-.add-form select:focus,
-.add-form input:focus {
+/* Focus styling for both forms */
+.add-form input:focus, .delete-form input:focus,
+.add-form select:focus, .delete-form select:focus {
     border-color: #2a7cff;
     box-shadow: 0 0 4px rgba(42,124,255,0.4);
 }
 
-.add-form .edit-btn {
-   padding: 10px 14px;
-
+/* Buttons styling for both forms */
+.add-form .edit-btn, .delete-form .edit-btn {
+    padding: 10px 14px;
     border-radius: 6px;
     border: none;
     background-color: #2a7cff;
@@ -361,20 +365,21 @@ footer {
     cursor: pointer;
 }
 
-.add-form .edit-btn:hover {
+.add-form .edit-btn:hover, .delete-form .edit-btn:hover {
     background-color: #1f5fd6;
 }
+
 .text-design {
     background: rgb(192,202,51);
-    color: rgb(255,255,255);
-    padding: 10px 20px;
-    display: inline-block;
+    color: #fff;
+    padding: 5px 20px;       /* vertical padding */
+    display: block;
+    width: fit-content;      /* shrink to text width */
+    margin: 10px auto 5px;   /* top=10px, bottom=5px, horizontally centered */
     transform: skew(-20deg);
     border-radius: 4px;
+    text-align: center;
 }
-
-
-
 
 
 .account-info {
