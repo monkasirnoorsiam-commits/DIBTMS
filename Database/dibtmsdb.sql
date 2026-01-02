@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2026 at 09:32 PM
+-- Generation Time: Jan 02, 2026 at 06:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -58,7 +58,7 @@ CREATE TABLE `bank` (
 
 INSERT INTO `bank` (`banking_service_name`, `acc_number`, `amount`) VALUES
 ('Bkash', '01644848487', 500),
-('Bkash', '01716165887', 600),
+('Bkash', '01716165887', 135),
 ('Bkash', '01948749815', 1000),
 ('Bkash', '01476451687', 250),
 ('Bkash', '01868641068', 5000),
@@ -118,13 +118,13 @@ INSERT INTO `bus_seats` (`bus_no`, `seat_no`, `vacant`) VALUES
 (1001, 1, 1),
 (1001, 2, 1),
 (1001, 3, 1),
-(1001, 4, 1),
-(1001, 5, 1),
+(1001, 4, 0),
+(1001, 5, 0),
 (1001, 6, 0),
 (1001, 7, 0),
-(1001, 8, 1),
-(1001, 9, 1),
-(1001, 10, 1),
+(1001, 8, 0),
+(1001, 9, 0),
+(1001, 10, 0),
 (1002, 1, 1),
 (1002, 2, 1),
 (1002, 3, 1),
@@ -256,7 +256,7 @@ CREATE TABLE `bus_service` (
 --
 
 INSERT INTO `bus_service` (`bus_no`, `m_id`, `type`, `total_seats`, `description`, `cost`) VALUES
-(1001, 200001, 'AC', 18, 'Gulshan - Dhanmondi - Banani - Uttara Premium Service ', 100),
+(1001, 200001, 'AC', 13, 'Gulshan - Dhanmondi - Banani - Uttara Premium Service ', 100),
 (1002, 200001, 'Non-AC', 30, 'Gulistan - Mohammadpur - Puran Dhaka - Mohakhali Regular Service', 50),
 (1003, 200001, 'AC', 15, 'Airport - Banani - Gulshan - Mogbazar Premium Service', 100),
 (2001, 200002, 'Non-AC', 30, 'Kalshi Flyover - Mirpur - Agargaon - Farmgate - Karwan Bazar Regular Service', 40),
@@ -280,7 +280,7 @@ CREATE TABLE `passengers` (
 
 INSERT INTO `passengers` (`p_id`, `discount`, `no_of_rides`) VALUES
 (300001, 0.07, 1),
-(300002, 0.07, 0),
+(300002, 0.07, 1),
 (300003, 0.07, 0),
 (300004, 0.05, 2);
 
@@ -307,7 +307,7 @@ INSERT INTO `payment_options` (`p_id`, `banking_service_name`, `acc_number`, `am
 (300001, 'Rocket', NULL, NULL),
 (300001, 'Visa', NULL, NULL),
 (300001, 'Mastercard', NULL, NULL),
-(300002, 'Bkash', '01716165887', 600),
+(300002, 'Bkash', '01716165887', 135),
 (300002, 'Nagad', NULL, NULL),
 (300002, 'Rocket', NULL, NULL),
 (300002, 'Visa', NULL, NULL),
@@ -367,7 +367,8 @@ CREATE TABLE `ride_history` (
 INSERT INTO `ride_history` (`p_id`, `bus_no`, `start_from`, `end_at`, `time`, `ride_cost`, `seat_info`, `ride_date`) VALUES
 (300001, 1001, 'Dhanmondi', 'Banani', '12:00:00', 95, '[ 1, , , , ,  ]', '2025-12-27'),
 (300004, 3001, 'Science Lab', 'Shishu Park', '08:30:00', 299, '[ 1, 3, 5, , ,  ]', '2026-01-02'),
-(300004, 1001, 'Gulshan', 'Dhanmondi', '10:00:00', 190, '[ 6, 7, , , ,  ]', '2026-01-02');
+(300004, 1001, 'Gulshan', 'Dhanmondi', '10:00:00', 190, '[ 6, 7, , , ,  ]', '2026-01-02'),
+(300002, 1001, 'Gulshan', 'Dhanmondi', '10:00:00', 465, '[ 4, 5, 8, 9, 10,  ]', '2026-01-03');
 
 -- --------------------------------------------------------
 
