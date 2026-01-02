@@ -14,8 +14,9 @@
 </head>
 <body>
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
-                <h2>Select number of seats:</h2>
-                    <select name="seats" required onchange="this.form.submit()">
+                <h2 class="text-design">Select number of seats:</h2>
+                       <select name="seats" class="booking-select" style="width: 220px; padding: 10px; font-size: 16px; margin: 10px 0;" 
+                       required onchange="this.form.submit()">
                                             <?php
                                                 $selected_seats = isset($_POST['seats']) ? $_POST['seats'] : '1';
                                                 for($i = 1; $i <= 5; $i++) {
