@@ -28,7 +28,7 @@
            color:rgb(255,255,255);
            padding:10px 20px;
            display:inline-block;
-           transform: skew(-20deg);">
+           ">
     Your payment option
 </h2>
 
@@ -59,7 +59,7 @@
            color:rgb(255,255,255);
            padding:10px 20px;
            display:inline-block;
-           transform: skew(-20deg);">
+           ">
     Update payment option
 </h2>
 
