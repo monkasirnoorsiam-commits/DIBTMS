@@ -31,9 +31,10 @@
         //echo"a $start_from " . "b $end_at " . "c $user_id " . "d $bus_no " . "e $time " . "f $seats " . "g $discount " . "h $cost " . "i $ride_cost " . "j $ride_date " . "k $seat_info " . "m $total_seats";
     ?>
     <form method="post">
-                        <h2>Your ride fee is <?php echo$ride_cost; ?></h2><br>
-                        <h2>Select Payment Option:</h2><br>
-                            <select name="payment_option" required>
+        <div class="time-container">
+                        <h2 class="text-design">Your ride fee is <?php echo$ride_cost; ?></h2><br>
+                        <h2 class="text-design">Select Payment Option:</h2><br>
+                            <select name="payment_option" class="booking-select" required>
                                 <?php
                                     $sql = "SELECT banking_service_name, acc_number FROM payment_options WHERE p_id = '$user_id'";
                                     $result = mysqli_query($conn, $sql);
@@ -43,6 +44,7 @@
                                     }
                             ?> </select>
                             <button type="submit" name="select5" class="edit-btn">Select</button>
+                         </div>
                         </form>
                         <?php if(isset($_POST['select5'])){
                             $banking_service_name = mysqli_real_escape_string($conn, $_POST['payment_option']);
