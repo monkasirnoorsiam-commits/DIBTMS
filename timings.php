@@ -24,7 +24,7 @@
 ?>
 <body>
     <div class='payment-options'>
-        <h2>Your Bus Service Time Slots</h2>
+        <h2 class="text-design">Your Bus Service Time Slots</h2>
         <table class="payment-table">
             <thead>
                 <tr>
@@ -48,7 +48,7 @@
             </tbody>
         </table>
     <div class="button-container">
-        <h2>Add a Time Slot</h2>
+        <h2 class="text-design">Add a Time Slot</h2>
         <form method="post" class="add-form">
             <?php
                 $sql = "SELECT bus_no from bus_service where m_id = '$user_id'";
@@ -78,7 +78,7 @@
             </select>
             <button type="submit" name="add" class="edit-btn">Add</button>
         </form>
-        <h2>Delete a Time Slot</h2>
+        <h2 class="text-design">Delete a Time Slot</h2>
             <form method="post" class="delete-form">
             <?php
                 $sql = "SELECT DISTINCT t.bus_no FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id'";
