@@ -246,9 +246,12 @@ footer {
 
 .booking-select {
     border: 1px solid #ccc;
-    width: 100%;
+    width: auto;       /* let it shrink to fit the content */
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
 }
-
 .booking-btn {
     background: rgb(192, 202, 51);
     color: #fff;
@@ -380,7 +383,43 @@ footer {
     border-radius: 4px;
     text-align: center;
 }
+.time-container {
+    display: flex;              /* use flexbox */
+    flex-direction: column;     /* stack label above dropdown */
+    align-items: center;        /* center horizontally */
+    gap: 10px;                  /* spacing between label and dropdown */
+    margin: 20px 0;             /* vertical spacing from other elements */
+}
 
+.bus-form .row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.bus-form input {
+    flex: 1;
+    min-width: 150px;
+    padding: 8px;
+}
+
+.bus-form .button-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.bus-form button {
+    padding: 10px 20px;
+    background: #d9534f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.bus-form button:hover {
+    background: #c9302c;
+}
 
 .account-info {
     max-width: 650px;
