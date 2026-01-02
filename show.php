@@ -46,12 +46,12 @@
     <div class='payment-options'>
         <?php if(substr($_SESSION["id"], 0, 1) == 1){
             if($_SESSION["type"] == "admin"){
-            ?> <h2 class="section-title">List Of All Admins</h2> 
+            ?> <h2 class="section-title text-design">List Of All Admins</h2> 
         <?php } elseif($_SESSION["type"] == "manager"){
             ?> <h2 class="section-title text-design">List Of All Bus Managers</h2>
 
         <?php } elseif($_SESSION["type"] == "passenger"){
-            ?> <h2 class="section-title">List Of All Registered Passengers</h2> 
+            ?> <h2 class="section-title text-design">List Of All Registered Passengers</h2> 
         <?php } } elseif(substr($_SESSION["id"], 0, 1) == 2){}
             ?> 
         <table class="payment-table">
@@ -205,18 +205,18 @@
         }
         else if ($_SESSION["type"] == "passenger"){ ?>
             <div class="button-container">
-            <h2 class="section-title">Update discount of a passenger</h2>
+            <h2 class="section-title text-design">Update discount of a passenger</h2>
             <form method="post" class="delete-form">
                 <input type="number" name="id" placeholder="Passenger ID" required>
                 <input type="number" name="discount" placeholder="Discount" step=".01" required>
                 <button type="submit" name="update1" class="edit-btn">Update</button>
                 </form>
-            <h2 class="section-title">Update discount of all passengers</h2>
+            <h2 class="section-title text-design">Update discount of all passengers</h2>
             <form method="post" class="delete-form">
                 <input type="number" name="discount" placeholder="Discount" step=".01" required>
                 <button type="submit" name="update2" class="edit-btn">Update</button>
                 </form>
-            <h2 class="section-title">Delete a passenger</h2>
+            <h2 class="section-title text-design">Delete a passenger</h2>
             <form method="post" class="delete-form">
                 <input type="number" name="id" placeholder="Passenger ID" required>
                 <button type="submit" name="delete" class="edit-btn">Delete</button>
