@@ -113,11 +113,17 @@
             <input type="number" name="salary" placeholder="Salary" required>
             <button type="submit" name="add" class="edit-btn">Add</button>
         </form>
+        <h2 class="section-title">Update Salary of a Bus Manager</h2>
+        <form method="post" class="delete-form">
+            <input type="number" name="id" placeholder="Manager ID" required>
+            <input type="number" name="salary" placeholder="Salary" required>
+            <button type="submit" name="update" class="edit-btn">Update</button>
+        </form>
         <h2 class="section-title">Delete a Bus Manager</h2>
         <form method="post" class="delete-form">
             <input type="number" name="id" placeholder="Manager ID" required>
             <button type="submit" name="delete" class="edit-btn">Delete</button>
-            </form>
+        </form>
         </div>
         <?php
         if(isset($_POST['add'])) {
@@ -157,9 +163,32 @@
                     echo "<script>alert('Error adding bus manager!');</script>";
                 }
         }
-        if(isset($_POST['delete'])) {
-            $query_id = $_POST["id"];
-            $sql = "DELETE FROM users U LEFT JOIN bus_managers M ON U.id = M.m_id WHERE M.m_id = '$query_id'";
+        else if(isset($_POST['update'])){
+            $query_id = $_POST['id'];
+            $salary = floatval($_POST['salary']);
+            $sql = "UPDATE bus_managers SET salary = '$salary' WHERE m_id = '$query_id'";
+            if(mysqli_query($conn, $sql)) {
+                echo "<script>alert('Salary of a bus manager updated successfully!'); window.location.href='show.php';</script>";
+            } 
+            else {
+                echo "<script>alert('Error updating salary of a bus manager!');</script>";
+            }
+        }
+        else if(isset($_POST['delete'])) {
+            $query_id = $_POST['id'];
+            $sql = "SELECT bus_no FROM bus_service WHERE m_id = '$query_id'";
+            $result = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($result);
+            $bus_no = $row['bus_no'];
+            $sql = "DELETE FROM bus_seats WHERE bus_no = '$bus_no'";
+            mysqli_query($conn, $sql);
+            $sql = "DELETE FROM time_slots WHERE bus_no = '$bus_no'";
+            mysqli_query($conn, $sql);
+            $sql = "DELETE FROM bus_service WHERE m_id = '$user_id' AND bus_no = '$bus_no'";
+            mysqli_query($conn, $sql);
+            $sql = "DELETE FROM bus_managers WHERE m_id = '$query_id'";
+            mysqli_query($conn, $sql);
+            $sql = "DELETE FROM users WHERE id = '$query_id'";
             if(mysqli_query($conn, $sql)) {
                 echo "<script>alert('Bus manager removed successfully!'); window.location.href='show.php';</script>";
             } 
@@ -173,12 +202,12 @@
             <h2 class="section-title">Update discount of a passenger</h2>
             <form method="post" class="delete-form">
                 <input type="number" name="id" placeholder="Passenger ID" required>
-                <input type="number" name="discount" placeholder="Discount" required>
+                <input type="number" name="discount" placeholder="Discount" step=".01" required>
                 <button type="submit" name="update1" class="edit-btn">Update</button>
                 </form>
             <h2 class="section-title">Update discount of all passengers</h2>
             <form method="post" class="delete-form">
-                <input type="number" name="discount" placeholder="Discount" required>
+                <input type="number" name="discount" placeholder="Discount" step=".01" required>
                 <button type="submit" name="update2" class="edit-btn">Update</button>
                 </form>
             <h2 class="section-title">Delete a passenger</h2>

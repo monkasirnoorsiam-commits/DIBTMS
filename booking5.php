@@ -13,7 +13,7 @@
     <title>DIBTMS Booking</title>
 </head>
 <body>
-    <?php  
+    <?php
         $start_from = $_SESSION['start_from'];
         $end_at = $_SESSION['end_at'];
         $user_id = $_SESSION['id'];
@@ -28,12 +28,12 @@
         $seat_info = $_SESSION['seat_info'];
         $total_seats = $_SESSION['total_seats'];
         $seat1 = null; $seat2 = null; $seat3 = null; $seat4 = null; $seat5 = null;
-        //echo"a $start_from " . "b $end_at " . "c $user_id " . "d $bus_no " . "e $time " . "f $seats " . "g $discount " . "h $cost " . "i $ride_cost " . "j $ride_date " . "k $seat_info ";
+        //echo"a $start_from " . "b $end_at " . "c $user_id " . "d $bus_no " . "e $time " . "f $seats " . "g $discount " . "h $cost " . "i $ride_cost " . "j $ride_date " . "k $seat_info " . "m $total_seats";
     ?>
-    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
+    <form method="post">
                         <h2>Your ride fee is <?php echo$ride_cost; ?></h2><br>
                         <h2>Select Payment Option:</h2><br>
-                            <select name="payment_option" required onchange="this.form.submit()">
+                            <select name="payment_option" required>
                                 <?php
                                     $sql = "SELECT banking_service_name, acc_number FROM payment_options WHERE p_id = '$user_id'";
                                     $result = mysqli_query($conn, $sql);
@@ -77,7 +77,7 @@
                                     }
                                 }
                                 $total_seats = $total_seats - $seats;
-                                $sql = "UPDATE bus_service SET total_seats = '$total_seats'";
+                                $sql = "UPDATE bus_service SET total_seats = '$total_seats' WHERE bus_no = '$bus_no'";
                                 mysqli_query($conn, $sql);
                                 $amount = $amount - $ride_cost;
                                 $sql = "UPDATE bank SET amount = '$amount' WHERE acc_number = '$acc_number' AND banking_service_name = '$banking_service_name'";
@@ -91,7 +91,7 @@
                                         VALUES ('$user_id', '$bus_no', '$start_from', '$end_at', '$time', '$ride_cost', '$seat_info', '$ride_date')";
                                 if(mysqli_query($conn, $sql)) {
                                     echo "<script>alert('Ride booked successfully!'); window.location.href='passenger.php';</script>";
-                                } 
+                                }
                                 else {
                                     echo "<script>alert('Error booking ride!'); window.location.href='booking5.php';</script>";
                                 }

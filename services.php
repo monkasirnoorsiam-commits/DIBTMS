@@ -55,6 +55,12 @@
             <input type="number" name="cost" placeholder="Ride Cost" required>
             <button type="submit" name="add" class="edit-btn">Add</button>
         </form>
+        <h2>Change ride fares of a bus service</h2>
+        <form method="post" class="add-form">
+            <input type="number" name="bus_no" placeholder="Bus Number" required>
+            <input type="number" name="cost" placeholder="Ride Cost" required>
+            <button type="submit" name="change" class="edit-btn">Change</button>
+        </form>
         <h2>Clear seats of a bus service</h2>
         <form method="post" class="add-form">
             <input type="number" name="bus_no" placeholder="Bus Number" required>
@@ -95,7 +101,18 @@
             }
             echo "<script>alert('Bus service added successfully!'); window.location.href='services.php';</script>";
         }
-        if(isset($_POST['clear'])){
+        else if(isset($_POST['change'])){
+            $bus_no = mysqli_real_escape_string($conn, $_POST['bus_no']);
+            $cost = mysqli_real_escape_string($conn, $_POST['cost']);
+            $sql = "UPDATE bus_service SET cost = '$cost' WHERE bus_no = '$bus_no'";
+            if(mysqli_query($conn, $sql)) {
+                echo "<script>alert('Ride fares changed successfully!'); window.location.href='services.php';</script>";
+            } 
+            else {
+                echo "<script>alert('Error changing ride fares!');</script>";
+            }
+        }
+        else if(isset($_POST['clear'])){
             $bus_no = mysqli_real_escape_string($conn, $_POST['bus_no']);
             $sql = "SELECT COUNT(seat_no) AS total_seats FROM bus_seats WHERE bus_no = '$bus_no'";
             $result = mysqli_query($conn, $sql);
@@ -111,7 +128,7 @@
                 echo "<script>alert('Error clearing seats!');</script>";
             }
         }
-        if(isset($_POST['delete'])) {
+        else if(isset($_POST['delete'])) {
             $bus_no = mysqli_real_escape_string($conn, $_POST['bus_no']);
             $sql = "DELETE FROM bus_seats WHERE bus_no = '$bus_no'";
             mysqli_query($conn, $sql);

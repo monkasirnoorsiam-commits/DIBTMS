@@ -15,6 +15,10 @@
 </head>
 <?php 
     $user_id = $_SESSION["id"];
+    $addresses = array("Aftabnagar", "Agargaon", "Airport", "Badda", "Banani", "Bangla Motor", "Bijoy Shoroni", "Cantonment", 
+                            "Dhanmondi", "ECB Chottor", "Farmgate", "Gulistan", "Gulshan", "Kamalapur", "Kalshi Flyover", 
+                            "Lalbag", "Mohakhali", "Mohammadpur", "Mogbazar", "Motijheel", "Mirpur-1", "Mirpur-10", "Mirpur-12", 
+                            "Multiplan", "Puran Dhaka", "Science Lab", "Shahbag", "Shishu Park", "Uttara");
     $sql = "SELECT t.* FROM time_slots t LEFT JOIN bus_service b on b.bus_no = t.bus_no where b.m_id = '$user_id' ORDER BY t.time ASC";
     $result = mysqli_query($conn, $sql);
 ?>
@@ -58,8 +62,20 @@
                 ?>
             </select>
             <input type="time" name="time" placeholder="Start Time" required>
-            <input type="text" name="start_from" placeholder="From" required>
-            <input type="text" name="end_at" placeholder="To" required>
+            <select name="start_from" required>
+                <?php
+                    foreach($addresses as $address){
+                        echo "<option value='" . $address . "'>" . $address . "</option>";
+                    }
+                ?>
+            </select>
+            <select name="end_at" required>
+                <?php
+                    foreach($addresses as $address){
+                        echo "<option value='" . $address . "'>" . $address . "</option>";
+                    }
+                ?>
+            </select>
             <button type="submit" name="add" class="edit-btn">Add</button>
         </form>
         <h2>Delete a Time Slot</h2>

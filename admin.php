@@ -22,7 +22,7 @@
     </form>
 </body>
 </html>
-<?php 
+<?php
     $_SESSION["type"] = null;
     if(isset($_POST["show"])){
         $_SESSION["type"] = "manager";
@@ -35,9 +35,6 @@
     elseif(isset($_POST["show3"])){
         $_SESSION["type"] = "admin";
         header("Location: show.php");
-    }
-    elseif(isset($_POST["verify"])){
-        header("Location: verify.php");
     }
     include("footer.html");
 ?>

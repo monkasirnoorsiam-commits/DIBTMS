@@ -11,7 +11,6 @@
 </head>
 <body class="no-footer">
   <form class="registration-form" action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
-
         <h2>Registration form</h2>
         Name:
         <input type="text" name="name" placeholder="Name" required><br>
@@ -28,9 +27,9 @@
         Address:
         <select name="address" required><br>
             <?php
-                $addresses = array("Aftabnagar", "Agargaon", "Airport", "Badda", "Banani", "Bangla Motor", "Bijoy Shoroni", "Cantonment", 
-                            "Dhanmondi", "ECB Chottor", "Farmgate", "Gulistan", "Gulshan", "Kamalapur", "Kalshi Flyover", 
-                            "Lalbag", "Mohakhali", "Mohammadpur", "Mogbazar", "Motijheel", "Mirpur-1", "Mirpur-10", "Mirpur-12", 
+                $addresses = array("Aftabnagar", "Agargaon", "Airport", "Badda", "Banani", "Bangla Motor", "Bijoy Shoroni", "Cantonment",
+                            "Dhanmondi", "ECB Chottor", "Farmgate", "Gulistan", "Gulshan", "Kamalapur", "Kalshi Flyover",
+                            "Lalbag", "Mohakhali", "Mohammadpur", "Mogbazar", "Motijheel", "Mirpur-1", "Mirpur-10", "Mirpur-12",
                             "Multiplan", "Puran Dhaka", "Science Lab", "Shahbag", "Shishu Park", "Uttara");
                 foreach($addresses as $address){
                     echo "<option value='" . $address . "'>" . $address . "</option>";
@@ -41,15 +40,14 @@
     </form>
 
 <?php
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(isset($_POST['submit'])){
         $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
         $phone_no = filter_input(INPUT_POST, "phone_no", FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
         $nid = filter_input(INPUT_POST, "nid", FILTER_VALIDATE_INT);
         $date_of_birth = $_POST["date_of_birth"];
-        if(isset($_POST["address"])){
-            $address = $_POST["address"];
+        $address = $_POST["address"];
             if(substr($email, 0, 5) == "admin" OR substr($email, 0, 7) == "manager"){
                 echo"<script>alert(You cannot use this email); window.location.href='registration.php';</script>";
             }
@@ -90,13 +88,12 @@
                     mysqli_query($conn, $sql);
                     $sql = "INSERT INTO passengers (p_id, discount, no_of_rides) VALUES ('$id', '$discount', '$no_of_rides')";
                     mysqli_query($conn, $sql);
-                    $sql = "INSERT INTO payment_options (p_id, banking_service_name, acc_number, amount) VALUES 
+                    $sql = "INSERT INTO payment_options (p_id, banking_service_name, acc_number, amount) VALUES
                             ('$id', 'Bkash', null, null), ('$id', 'Nagad', null, null), ('$id', 'Rocket', null, null), ('$id', 'Visa', null, null), ('$id', 'Mastercard', null, null)";
-                    try{
-                        mysqli_query($conn, $sql);
+                    if (mysqli_query($conn, $sql)){
                         echo"<script>alert(You are now registered! Now log in to your account); window.location.href='login.php';</script>";
                     }
-                    catch(mysqli_sql_exception){
+                    else {
                         echo"<script>alert(Unexpected error occured); window.location.href='registration.php';</script>";
                     }
                 }
@@ -104,10 +101,6 @@
                     echo"<script>alert(That email or phone number or NID is taken); window.location.href='registration.php';</script>";
                 }
             }
-        }
-        else {
-            echo"<script>alert(Please make a selection); window.location.href='registration.php';</script>";
-        }
     }
     include("footer.html");
     mysqli_close($conn);

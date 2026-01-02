@@ -14,17 +14,25 @@
 </body>
 </html>
 <?php
-    $date_of_birth = $_POST["date"];;
+    $date_of_birth = $_POST["date"];
     $today = new DateTime();
     $dob = new DateTime($date_of_birth);
     $age = $dob->diff($today)->y;
     echo$age;
     /*
-    nafis
-    nafis@gmail.com
-    01651614891
-    nafis
-    1651614844
-    
+    Some login info:
+
+    admin1@gmail.com - spongebob
+    admin2@yahoo.com - mazda
+    admin3@outlook.com - nick
+
+    manager1@gmail.com - patrick
+    manager2@gmail.com - tanvir
+    manager3@yahoo.com - rasel
+
+    nafis@gmail.com - nafis
+    mahin@gmail.com - mahin
+    tadrib@gmail.com - tadrib
+
     */
 ?>

@@ -26,7 +26,7 @@
         $sql = "SELECT * FROM bus_seats WHERE bus_no = '$bus_no'";
                     $result = mysqli_query($conn, $sql); ?>
                     <h2>Choose your preferred seats</h2>
-                    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post"> <?php
+                    <form method="post"> <?php
                     if($seats >= 1){ ?>
                             Seat 1:
                             <select name="seat1" required>
