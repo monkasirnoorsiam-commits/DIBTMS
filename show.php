@@ -48,7 +48,7 @@
             if($_SESSION["type"] == "admin"){
             ?> <h2 class="section-title">List Of All Admins</h2> 
         <?php } elseif($_SESSION["type"] == "manager"){
-            ?> <h2 class="section-title">List Of All Bus Managers</h2>
+            ?> <h2 class="section-title text-design">List Of All Bus Managers</h2>
 
         <?php } elseif($_SESSION["type"] == "passenger"){
             ?> <h2 class="section-title">List Of All Registered Passengers</h2> 
@@ -100,7 +100,7 @@
         </table>
     <?php if(substr($_SESSION["id"], 0, 1) == 1){
             if($_SESSION["type"] == "manager"){
-            ?> <h2 class="section-title">Add a Bus Manager</h2>
+            ?> <h2 class="section-title text-design">Add a Bus Manager</h2>
 <div class="button-container">
     <form method="post" class="add-form bus-form">
         <div class="row">
@@ -119,13 +119,13 @@
     </form>
 </div>
 
-        <h2 class="section-title">Update Salary of a Bus Manager</h2>
+        <h2 class="section-title text-design">Update Salary of a Bus Manager</h2>
         <form method="post" class="delete-form">
             <input type="number" name="id" placeholder="Manager ID" required>
             <input type="number" name="salary" placeholder="Salary" required>
             <button type="submit" name="update" class="edit-btn">Update</button>
         </form>
-        <h2 class="section-title">Delete a Bus Manager</h2>
+        <h2 class="section-title text-design">Delete a Bus Manager</h2>
         <form method="post" class="delete-form">
             <input type="number" name="id" placeholder="Manager ID" required>
             <button type="submit" name="delete" class="edit-btn">Delete</button>
