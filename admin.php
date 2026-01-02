@@ -13,12 +13,14 @@
     <title>DIBTMS Admin</title>
 </head>
 <body>
-    <h2>Actions:</h2>
-    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
-        <input type="submit" name="show" value="Show all managers"><br>
-        <input type="submit" name="show2" value="Show all passengers"><br>
-        <input type="submit" name="show3" value="Show all admins"><br>
-        <input type="submit" name="verify" value="Verify rides"><br>
+    <h2>Your Dashboard, Your Control!</h2>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="action-form">
+        <div class="buttons-container">
+            <input type="submit" name="show" value="Show all managers" class="action-btn"><br>
+            <input type="submit" name="show2" value="Show all passengers" class="action-btn"><br>
+            <input type="submit" name="show3" value="Show all admins" class="action-btn"><br>
+            <input type="submit" name="verify" value="Verify rides" class="action-btn"><br>
+        </div>
     </form>
 </body>
 </html>
