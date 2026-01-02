@@ -25,11 +25,12 @@
         $seat_info = null;
         $sql = "SELECT * FROM bus_seats WHERE bus_no = '$bus_no'";
                     $result = mysqli_query($conn, $sql); ?>
-                    <h2>Choose your preferred seats</h2>
+                    <h2 class="text-design">Choose your preferred seats</h2>
                     <form method="post"> <?php
                     if($seats >= 1){ ?>
-                            Seat 1:
-                            <select name="seat1" required>
+                    <div class="time-container">
+                            <span class="text-design" style="display: inline-block;">Seat1:</span>
+                            <select name="seat1" class="booking-select" required>
                                 <?php
                                     mysqli_data_seek($result, 0);
                                     while($row = mysqli_fetch_assoc($result)) {
@@ -37,9 +38,11 @@
                                     }
                                 ?>
                             </select>
+                            </div>
                             <?php if($seats >= 2){ ?>
-                                Seat 2:
-                                <select name="seat2" required>
+                                <div class="time-container">
+                                <span class="text-design" style="display: inline-block;">Seat2:</span>
+                                <select name="seat2" class="booking-select" required>
                                     <?php
                                         mysqli_data_seek($result, 0);
                                         while($row = mysqli_fetch_assoc($result)) {
@@ -47,9 +50,11 @@
                                         }
                                     ?>
                                 </select>
+                                </div>
                                 <?php if($seats >= 3){ ?>
+                                    <div class="time-container">
                                     Seat 3:
-                                    <select name="seat3" required>
+                                    <select name="seat3" class="booking-select" required>
                                         <?php
                                             mysqli_data_seek($result, 0);
                                             while($row = mysqli_fetch_assoc($result)) {
@@ -57,6 +62,7 @@
                                             }
                                         ?>
                                     </select>
+                                    </div>
                                     <?php if($seats >= 4){ ?>
                                         Seat 4:
                                         <select name="seat4" required>
@@ -83,7 +89,10 @@
                                 }
                             }
                     } ?>
-                    <button type="submit" name="select4" class="edit-btn">Select</button>
+                    <div style="text-align: center; margin-top: 15px;">
+    <button type="submit" name="select4" class="edit-btn">Select</button>
+</div>
+
                     </form>
                     <?php
                     if (isset($_POST['select4'])){
