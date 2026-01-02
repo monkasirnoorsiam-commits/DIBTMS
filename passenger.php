@@ -41,6 +41,10 @@
     elseif(isset($_POST["review"])){
         header("Location: reviews.php");
     }
+    elseif(isset($_POST["history"])){
+    header("Location: history.php");
+    
+}
     elseif(isset($_POST["account"])){
         header("Location: account.php");
     }
