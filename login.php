@@ -22,13 +22,13 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $input = $_POST["input"];
         $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-        $hash = password_hash($password, PASSWORD_DEFAULT);
         if (filter_var($input, FILTER_VALIDATE_EMAIL)) { $sql = "SELECT * FROM users where email = '$input'"; }
         else { $sql = "SELECT * FROM users where phone_no = '$input'"; }
         $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $hash = $row['password'];
         if(mysqli_num_rows($result) > 0){
             if(password_verify($password, $hash)){
-                $row = mysqli_fetch_assoc($result);
                 $_SESSION["id"] = $row["id"];
                 if(substr($_SESSION["id"], 0, 1) == 1){ header("Location: admin.php"); }
                 elseif(substr($_SESSION["id"], 0, 1) == 2){ header("Location: manager.php"); }
