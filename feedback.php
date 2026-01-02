@@ -30,28 +30,32 @@ $user_id = $_SESSION["id"];
         </thead>
         <tbody>
             <?php
-            
-            $sql = "SELECT bus_no FROM bus_service WHERE m_id = '$user_id'";
+           
+            $sql = "
+                SELECT 
+                    b.bus_no, 
+                    COALESCE(AVG(r.ratings), 0) AS avg_rating,
+                    (SELECT comments 
+                     FROM reviews r2 
+                     WHERE r2.bus_no = b.bus_no 
+                     ORDER BY r2.p_id DESC 
+                     LIMIT 1) AS recent_comment
+                FROM bus_service b
+                LEFT JOIN reviews r ON b.bus_no = r.bus_no
+                WHERE b.m_id = '$user_id'
+                GROUP BY b.bus_no
+                ORDER BY b.bus_no
+            ";
+
             $result = mysqli_query($conn, $sql);
 
-            while($bus = mysqli_fetch_assoc($result)) {
-                $bus_no = $bus['bus_no'];
-
-
-                $rating_sql = "SELECT AVG(ratings) as avg_rating FROM reviews WHERE bus_no = '$bus_no'";
-                $rating_result = mysqli_query($conn, $rating_sql);
-                $rating_row = mysqli_fetch_assoc($rating_result);
-                $avg_rating = number_format($rating_row['avg_rating'], 2);
-
-               
-                $comment_sql = "SELECT comments FROM reviews WHERE bus_no = '$bus_no' ORDER BY p_id DESC LIMIT 1";
-                $comment_result = mysqli_query($conn, $comment_sql);
-                $comment_row = mysqli_fetch_assoc($comment_result);
-                $recent_comment = $comment_row['comments'] ?? "No comments yet";
+            while($row = mysqli_fetch_assoc($result)) {
+                $avg_rating = $row['avg_rating'] ? number_format($row['avg_rating'], 2) : "No ratings";
+                $recent_comment = $row['recent_comment'] ?? "No comments yet";
 
                 echo "<tr>";
-                echo "<td>" . htmlspecialchars($bus_no) . "</td>";
-                echo "<td>" . ($avg_rating ? $avg_rating : "No ratings") . "</td>";
+                echo "<td>" . htmlspecialchars($row['bus_no']) . "</td>";
+                echo "<td>" . $avg_rating . "</td>";
                 echo "<td>" . htmlspecialchars($recent_comment) . "</td>";
                 echo "</tr>";
             }
