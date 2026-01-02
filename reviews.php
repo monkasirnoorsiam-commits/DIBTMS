@@ -23,7 +23,7 @@
                  color:rgb(255,255,255);
                  padding:5px 10px;
                  display:inline-block;
-                 transform: skew(-20deg);">
+                 ">
         Share your experience and help us improve!
     </span>
 </h2>
