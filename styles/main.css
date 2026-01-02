@@ -379,8 +379,8 @@ footer {
     display: block;
     width: fit-content;      /* shrink to text width */
     margin: 10px auto 5px;   /* top=10px, bottom=5px, horizontally centered */
-    transform: skew(-20deg);
-    border-radius: 4px;
+   
+   
     text-align: center;
 }
 .time-container {
