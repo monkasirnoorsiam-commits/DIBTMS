@@ -101,18 +101,24 @@
     <?php if(substr($_SESSION["id"], 0, 1) == 1){
             if($_SESSION["type"] == "manager"){
             ?> <h2 class="section-title">Add a Bus Manager</h2>
-            <div class="button-container">
-        <form method="post" class="add-form">
+<div class="button-container">
+    <form method="post" class="add-form bus-form">
+        <div class="row">
             <input type="text" name="name" placeholder="Name" required>
             <input type="text" name="email" placeholder="Email" required>
             <input type="text" name="phone_no" placeholder="Phone Number" required>
             <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <div class="row">
             <input type="text" name="nid" placeholder="NID" required>
             <input type="date" name="dob" placeholder="Date of Birth" required>
             <input type="text" name="address" placeholder="Address" required>
             <input type="number" name="salary" placeholder="Salary" required>
-            <button type="submit" name="add" class="edit-btn">Add</button>
-        </form>
+        </div>
+        <button type="submit" name="add" class="edit-btn">Add</button>
+    </form>
+</div>
+
         <h2 class="section-title">Update Salary of a Bus Manager</h2>
         <form method="post" class="delete-form">
             <input type="number" name="id" placeholder="Manager ID" required>
