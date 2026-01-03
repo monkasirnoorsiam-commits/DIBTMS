@@ -5,7 +5,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url('../bg.PNG');
+    background-image: url('../bg.png');
     background-size: cover;
     background-position: center 80%;
     background-repeat: no-repeat;
@@ -561,4 +561,5 @@ footer {
 .action-btn:hover::after {
     width: 100%;
 }
+
 
