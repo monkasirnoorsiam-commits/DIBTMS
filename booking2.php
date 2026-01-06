@@ -14,16 +14,13 @@
 </head>
 <body>
     <?php
-        $start_from = $_SESSION['start_from'];
-        $end_at = $_SESSION['end_at'];
-        $user_id = $_SESSION["id"];
-        $time = null;
-        $sql = "SELECT t.time, b.description FROM time_slots t LEFT JOIN bus_service b ON b.bus_no = t.bus_no WHERE t.start_from = '$start_from' AND t.end_at = '$end_at'";
-        $result = mysqli_query($conn, $sql);
-    ?> 
+        $start_from = $_SESSION['start_from']; $end_at = $_SESSION['end_at']; $user_id = $_SESSION["id"]; $time = null;
+        $sql = "SELECT t.time, b.description FROM time_slots t LEFT JOIN bus_service b ON b.bus_no = t.bus_no
+        WHERE t.start_from = '$start_from' AND t.end_at = '$end_at'";
+        $result = mysqli_query($conn, $sql); ?>
     <h2 class="text-design" >Select available time:</h2><br>
         <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
-            <div class="time-container">
+        <div class="time-container">
             <span class="text-design" style="display: inline-block;">Time:</span>
             <select name="time" class="booking-select" required onchange="this.form.submit()">
                 <?php
@@ -31,16 +28,12 @@
                     mysqli_data_seek($result, 0);
                     while($row = mysqli_fetch_assoc($result)) {
                         echo "<option value='" . $row['time'] . "'" . ($time == $row['time'] ? " selected" : "") . ">" . $row['time'] . $row['description'] . "</option>";
-                    }
-                ?>
-            </select>
-            
-             <div style="width: 100%; display: flex; justify-content: center; margin-top: 10px;">
-            <button type="submit" name="select2" class="edit-btn">Select</button>
+                    } ?> </select>
+            <div style="width: 100%; display: flex; justify-content: center; margin-top: 10px;">
+                <button type="submit" name="select2" class="edit-btn">Select</button>
             </div>
-            </div>
-        </form>
-            <?php 
+        </div>
+        </form> <?php
             if(isset($_POST['select2'])){
                 $time = mysqli_real_escape_string($conn, $_POST['time']);
                 $sql = "SELECT p.discount, p.no_of_rides FROM passengers p WHERE p.p_id = '$user_id'";
@@ -48,18 +41,13 @@
                 $row = mysqli_fetch_assoc($result);
                 $discount = $row['discount'];
                 $no_of_rides = $row['no_of_rides'];
-                $sql = "SELECT t.bus_no, b.cost, b.total_seats FROM time_slots t LEFT JOIN bus_service b ON b.bus_no = t.bus_no WHERE t.start_from = '$start_from' AND t.end_at = '$end_at' AND t.time = '$time'";
+                $sql = "SELECT t.bus_no, b.cost, b.total_seats FROM time_slots t LEFT JOIN bus_service b ON b.bus_no = t.bus_no
+                        WHERE t.start_from = '$start_from' AND t.end_at = '$end_at' AND t.time = '$time'";
                 $result = mysqli_query($conn, $sql);
                 $row = mysqli_fetch_assoc($result);
-                $bus_no = $row['bus_no'];
-                $cost = $row['cost'];
-                $total_seats = $row['total_seats'];
-                $_SESSION['time'] = $time;
-                $_SESSION['discount'] = $discount;
-                $_SESSION['bus_no'] = $bus_no;
-                $_SESSION['cost'] = $cost;
-                $_SESSION['no_of_rides'] = $no_of_rides;
-                $_SESSION['total_seats'] = $total_seats;
+                $bus_no = $row['bus_no']; $cost = $row['cost']; $total_seats = $row['total_seats'];
+                $_SESSION['time'] = $time; $_SESSION['discount'] = $discount; $_SESSION['bus_no'] = $bus_no;
+                $_SESSION['cost'] = $cost; $_SESSION['no_of_rides'] = $no_of_rides; $_SESSION['total_seats'] = $total_seats;
                 header("Location: booking3.php");
             }
             include("footer.html");

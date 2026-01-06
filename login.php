@@ -34,6 +34,7 @@
                 elseif(substr($_SESSION["id"], 0, 1) == 2){ header("Location: manager.php"); }
                 else{ header("Location: passenger.php"); }
             }
+            else{ echo "<script>alert(Wrong username or password); window.location.href='login.php';</script>"; }
         }
         else{ echo "<script>alert(Wrong username or password); window.location.href='login.php';</script>"; }
     }

@@ -63,7 +63,7 @@
                 <option value="Visa">Visa</option>
                 <option value="Mastercard">Mastercard</option>
             </select>
-            <input type="search" name="acc_number" class="payment-search" placeholder="Account No">
+            <input type="search" name="acc_number" class="payment-search" placeholder="Search payment options">
             <button type="submit" name="update" class="edit-btn">Update</button>
         </form>
         </div>
@@ -92,4 +92,3 @@
         mysqli_close($conn);
     ?>
 </body>
-

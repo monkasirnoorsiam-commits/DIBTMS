@@ -16,26 +16,10 @@
 <body>
 <?php
     $user_id = $_SESSION["id"];
-    if(substr($_SESSION["id"], 0, 1) == 1){
-        $sql = "SELECT u.* 
-            FROM users u 
-            LEFT JOIN admins ad ON u.id = ad.ad_id 
-            WHERE u.id = '$user_id'";
-    }
-    else if(substr($_SESSION["id"], 0, 1) == 2){
-        $sql = "SELECT u.*
-            FROM users u 
-            LEFT JOIN bus_managers m ON u.id = m.m_id 
-            WHERE u.id = '$user_id'";
-    }
-    else {
-        $sql = "SELECT u.*, p.discount, p.no_of_rides
-            FROM users u 
-            LEFT JOIN passengers p ON u.id = p.p_id 
-            WHERE u.id = '$user_id'";
-    }
+    if(substr($_SESSION["id"], 0, 1) == 1){ $sql = "SELECT u.* FROM users u LEFT JOIN admins ad ON u.id = ad.ad_id WHERE u.id = '$user_id'"; }
+    else if(substr($_SESSION["id"], 0, 1) == 2){ $sql = "SELECT u.* FROM users u LEFT JOIN bus_managers m ON u.id = m.m_id WHERE u.id = '$user_id'"; }
+    else { $sql = "SELECT u.*, p.discount, p.no_of_rides FROM users u LEFT JOIN passengers p ON u.id = p.p_id WHERE u.id = '$user_id'"; }
     $result = mysqli_query($conn, $sql);
-        
     if($row = mysqli_fetch_assoc($result)) {
         echo "<div class='account-info'>";
         echo "<h2>Account Information</h2>";
@@ -58,7 +42,7 @@
 ?>
 </body>
 </html>
-<?php 
+<?php
     include("footer.html");
     mysqli_close($conn);
 ?>

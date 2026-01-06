@@ -33,27 +33,18 @@ $user_id = $_SESSION["id"];
             <th>Ride Date</th>
         </tr>
         <?php
-     $sql = "
-    SELECT c.bus_no, c.start_from, c.end_at, c.time, c.ride_cost, c.seat_info, c.ride_date,
-           bs.type, bs.description
-    FROM ride_history c
-    LEFT JOIN bus_service bs ON c.bus_no = bs.bus_no
-    WHERE c.p_id = '$user_id'
-    ORDER BY c.ride_date DESC, c.time DESC
-";
-
-
+        $sql = "SELECT * FROM ride_history WHERE p_id = '$user_id' ORDER BY ride_date DESC, time DESC";
         $result = mysqli_query($conn, $sql);
 
         while($row = mysqli_fetch_assoc($result)){
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['bus_no']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['start_from']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['end_at']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['time']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['ride_cost']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['seat_info']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['ride_date']) . "</td>";
+            echo "<td>" . $row['bus_no'] . "</td>";
+            echo "<td>" . $row['start_from'] . "</td>";
+            echo "<td>" . $row['end_at'] . "</td>";
+            echo "<td>" . $row['time'] . "</td>";
+            echo "<td>" . $row['ride_cost'] . "</td>";
+            echo "<td>" . $row['seat_info'] . "</td>";
+            echo "<td>" . $row['ride_date'] . "</td>";
             echo "</tr>";
         }
         ?>
